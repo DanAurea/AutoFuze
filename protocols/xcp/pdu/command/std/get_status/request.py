@@ -1,6 +1,6 @@
 from xcp.enum.command_code import StandardCommandCode
 
-class GetCurrentSessionRequest(object):
+class GetStatusRequest(object):
     """
     This class describes a get current session request.
     """

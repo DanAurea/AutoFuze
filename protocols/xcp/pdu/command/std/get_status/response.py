@@ -1,7 +1,7 @@
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.parameter_bit import CurrentSessionStatusBit, RessourceBit
 
-class GetCurrentSessionResponse(object):
+class GetStatusResponse(object):
     """
     This class describes a get current session request.
     """

@@ -26,7 +26,7 @@ class CommModeBasicBit(IntFlag):
     ADDRESS_GRANULARITY_0        = 0x02
     BYTE_ORDER                   = 0x01
     
-class CommModeOptional(IntFlag):
+class CommModeOptionalBit(IntFlag):
     """
     This class describes a communications mode optional.
     """
@@ -39,7 +39,7 @@ class CommModeOptional(IntFlag):
     INTERLEAVED_MODE             = 0x02
     MASTER_BLOCK_MODE            = 0x01
     
-class CommModePgm(IntFlag):
+class CommModePgmBit(IntFlag):
     """
     This class describes a communications mode program.
     """
@@ -156,7 +156,7 @@ class GetDaqEventInfoBit(IntFlag):
     RESERVED_1                   = 0x02
     RESERVED_0                   = 0x01
     
-    class TimestampModeBit(IntFlag):
+class TimestampModeBit(IntFlag):
     """
     This class describes a timestamp mode bit.
     """

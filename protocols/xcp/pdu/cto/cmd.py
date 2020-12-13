@@ -4,7 +4,7 @@ class Cmd(Base):
     
     def __init__(self):
         super(Cmd, self).__init__(pid = 0xC0)
-        self.daata = b''
+        self.data = b''
 
     def is_correct_pid(self):
         correct = False
