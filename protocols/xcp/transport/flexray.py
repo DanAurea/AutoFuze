@@ -1,3 +1,4 @@
-class Timestamp(object):
+class FlexrayTransport(object):
+
     def __init__(self):
         pass

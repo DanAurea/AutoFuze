@@ -1,4 +1,4 @@
-from xcp.pdu.base import Base
+from xcp.pdu.packet_base import PacketBase
 
 class Serv(Base):
     

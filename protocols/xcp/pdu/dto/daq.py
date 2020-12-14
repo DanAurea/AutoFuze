@@ -1,7 +1,7 @@
-from xcp.pdu.base import Base
+from xcp.pdu.packet_base import PacketBase
 from xcp.pdu.identification import Identification
 
-class Daq(Base):
+class Daq(PacketBase):
     
     def __init__(self):
         super(Daq, self).__init__(pid = 0x00)

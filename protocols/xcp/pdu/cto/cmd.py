@@ -1,10 +1,9 @@
-from xcp.pdu.base import Base
+from xcp.pdu.packet_base import PacketBase
 
-class Cmd(Base):
+class Cmd(PacketBase):
     
-    def __init__(self):
-        super(Cmd, self).__init__(pid = 0xC0)
-        self.data = b''
+    def __init__(self, pid = 0xC0):
+        super(Cmd, self).__init__(pid = pid)
 
     def is_correct_pid(self):
         correct = False

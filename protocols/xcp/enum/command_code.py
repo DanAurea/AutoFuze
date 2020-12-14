@@ -22,7 +22,7 @@ class StandardCommandCode(IntEnum):
     TRANSPORT_LAYER_CMD     = 0XF2
     USER_CMD                = 0XF1
     
-class CalibrationCommand(IntEnum):
+class CalibrationCommandCode(IntEnum):
     """
     This class describes a calibration command.
     """
@@ -32,7 +32,7 @@ class CalibrationCommand(IntEnum):
     SHORT_DOWNLOAD          = 0xED
     MODIFY_BITS             = 0xEC
     
-class PageSwitchingCommand(IntEnum):
+class PageSwitchingCommandCode(IntEnum):
     """
     This class describes a page switching command.
     """
@@ -46,7 +46,7 @@ class PageSwitchingCommand(IntEnum):
     GET_SEGMENT_MODE        = 0xE5
     COPY_CAL_PAGE           = 0xE4
     
-class DataAcquisitionCommand(IntEnum):
+class DataAcquisitionCommandCode(IntEnum):
     """
     This class describes a data acquisition command.
     """
@@ -70,7 +70,7 @@ class DataAcquisitionCommand(IntEnum):
     ALLOC_ODT               = 0XD4
     ALLOC_ODT_ENTRY         = 0XD3
     
-class NvmProgrammingCommand(IntEnum):
+class NvmProgrammingCommandCode(IntEnum):
     """
     This class describes a nvm programming command.
     """
@@ -87,7 +87,7 @@ class NvmProgrammingCommand(IntEnum):
     PROGRAM_MAX             = 0XC9
     PROGRAM_VERIFY          = 0XC8
     
-class ReservedCommand(IntEnum):
+class ReservedCommandCode(IntEnum):
     """
     This class describes a reserved command (not defined in Vector's documentation).
     """
