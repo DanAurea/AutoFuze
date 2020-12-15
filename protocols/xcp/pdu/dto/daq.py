@@ -1,4 +1,4 @@
-from xcp.pdu.packet_base import PacketBase
+from xcp.pdu.base import PacketBase
 from xcp.pdu.identification import Identification
 
 class Daq(PacketBase):

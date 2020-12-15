@@ -14,7 +14,7 @@ class TransportBase(object):
     def create_message(self, packet):
         """
         Creates a message independtly of its transport layer.
-        Sub classe should overload this method if they want to
+        Sub classes should overload this method if they want to
         add transport dependent behavior.
 
         :param      packet:  The packet to send.
