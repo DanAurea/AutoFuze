@@ -16,12 +16,10 @@ DISCLAIMER: This only a simple test made as a primary usage of XCP API but more 
 data         = b"\x00\xf0\xf2\xf2"
 download_req = DownloadRequest(number_of_data_element = len(data), alignment = 0x01, data = bytearray(data))
 
-xcp_packet   = XcpFrame(packet = download_req)
+xcp_packet = bytes(download_req)
 
-packet_bytes = bytes(xcp_packet)
-
-command_code, number_of_data_element, alignment = unpack("<3B", packet_bytes[:3])
-data_unpack                                     = unpack("<4B", packet_bytes[3:])
+command_code, number_of_data_element, alignment = unpack("<3B", xcp_packet[:3])
+data_unpack                                     = unpack("<4B", xcp_packet[3:])
 
 # Check that xcp packet contains correct data
 assert command_code           == CalibrationCommandCode.DOWNLOAD
@@ -40,7 +38,6 @@ assert unpack("<H", eth_frame_2[2:4])[0] == 0x01
 
 can_transport = CanTransport()
 can_frame     = can_transport.create_message((xcp_packet))
-print(can_frame)
 
 # Check that can frame is correctly formed when fill is not enabled
 assert unpack("<B", can_frame[:1])[0] == 0x07

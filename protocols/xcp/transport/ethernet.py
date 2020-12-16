@@ -3,7 +3,7 @@ from struct import pack
 
 class XcpEthernetHeader(object):
     """
-    This class describes a XCP ethernet header.*
+    This class describes a XCP ethernet header.
     XCP Ethernet header is composed as:
         - 2 bytes describing XCP Packet Length
         - 2 bytes describing a control ctr (used to detect missing packets in flow control)

@@ -1,6 +1,6 @@
 from xcp.pdu.base import PacketBase
 
-class Serv(Base):
+class Serv(PacketBase):
     
     def __init__(self):
         super(Serv, self).__init__(pid = 0xFC)
