@@ -11,10 +11,19 @@ class EthernetClient(ClientBase):
         self._port            = self.DEFAULT_XCP_PORT
         
         self._transport_layer = EthernetTransport()
+
+        self._socket          = EthernetSocket()
         self._slave_address   = (self._ecu_address, self._port)
 
     def send(self, packet):
-        self._transport_layer.create_message(packet)
+        """
+        Send frame over Ethernet layer.
+        
+        :param      packet:  The packet
+        :type       packet:  { type_description }
+        """
+        frame = super(EthernetClient, self).get_frame(packet)
+
 
     def receive(self):
         pass

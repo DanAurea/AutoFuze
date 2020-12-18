@@ -12,8 +12,8 @@ class EthernetMaster(MasterBase):
     client should be privilegied.
     """
     def __init__(self):
-        self._client = EthernetClient()
-
+        self._client             = EthernetClient()
+        
     def upload(self):
         pass
 
