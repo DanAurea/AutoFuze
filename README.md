@@ -16,7 +16,9 @@ useful for flashing software, update NVM and other embedded parameters.
     - USB
     - Ethernet
     - SxI
-    - CAN 
+    - CAN
+* SOME/IP
+* OBD
 * USB
 * CAN
 

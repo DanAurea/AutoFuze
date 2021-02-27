@@ -1,0 +1,2 @@
+class AliveCheckRequest(object):
+    pass

@@ -12,6 +12,7 @@ class ClientBase(object):
 
     def __init__(self):
         self._transport_layer = None
+        self._physical_layer  = None
 
     def get_frame(self, packet):
         """

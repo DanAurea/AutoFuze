@@ -1,3 +1,4 @@
+from network.ethernet import Ethernet
 from xcp.client.base import ClientBase
 from xcp.transport.ethernet import EthernetTransport
 
@@ -11,8 +12,8 @@ class EthernetClient(ClientBase):
         self._port            = self.DEFAULT_XCP_PORT
         
         self._transport_layer = EthernetTransport()
-
-        self._socket          = EthernetSocket()
+        
+        self._physical_layer  = Ethernet()
         self._slave_address   = (self._ecu_address, self._port)
 
     def send(self, packet):
@@ -23,7 +24,6 @@ class EthernetClient(ClientBase):
         :type       packet:  { type_description }
         """
         frame = super(EthernetClient, self).get_frame(packet)
-
 
     def receive(self):
         pass

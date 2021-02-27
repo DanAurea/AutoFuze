@@ -43,7 +43,7 @@ class UsbTail(object):
 class UsbTransport(TransportBase):
     """
     This class describes Universal Serial Bus (USB) transport layer used for XCP.
-    XCP on USB is add an extra header and tail to XCP frame.
+    XCP on USB is adding an extra header and tail to XCP frame.
     """
     def __init__(self):
         super(UsbTransport, self).__init__()
