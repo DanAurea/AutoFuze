@@ -1,0 +1,2 @@
+class GenericDoIPNack(object):
+    pass

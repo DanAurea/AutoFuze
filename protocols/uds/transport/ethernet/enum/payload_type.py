@@ -4,6 +4,7 @@ class DoIPPayloadType(IntEnum):
     """
     This class enumerates all DoIP payload types.
     """
+    GENERIC_DOIP_HEADER_NEGATIVE_ACK           = 0X0000
     VEHICLE_IDENTIFICATION_REQUEST             = 0X0001
     VEHICLE_IDENTIFICATION_REQUEST_EID         = 0X0002
     VEHICLE_IDENTIFICATION_REQUEST_VIN         = 0X0003
@@ -12,7 +13,6 @@ class DoIPPayloadType(IntEnum):
     DOIP_ENTITY_STATUS_REQUEST                 = 0X4001
     DIAGNOSTIC_POWER_MODE_INFORMATION_REQUEST  = 0X4003
     DIAGNOSTIC_MESSAGE                         = 0X8001
-    GENERIC_DOIP_HEADER_NEGATIVE_ACK           = 0X0000
     VEHICLE_ANNOUNCEMENT_MESSAGE               = 0X0004
     ROUTING_ACTIVATION_RESPONSE                = 0X0006
     ALIVE_CHECK_REQUEST                        = 0X0007

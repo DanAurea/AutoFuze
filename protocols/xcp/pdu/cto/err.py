@@ -1,6 +1,6 @@
-from xcp.pdu.base import PacketBase
+from xcp.pdu.base import XCPPacketBase
 
-class Err(PacketBase):
+class Err(XCPPacketBase):
     __slots__ = ("_code")
     
     def __init__(self):

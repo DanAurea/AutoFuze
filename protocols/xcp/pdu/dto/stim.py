@@ -1,7 +1,7 @@
-from xcp.pdu.base import PacketBase
+from xcp.pdu.base import XCPPacketBase
 from xcp.pdu.identification import Identification
 
-class Stim(PacketBase):
+class Stim(XCPPacketBase):
     
     def __init__(self):
         super(Stim, self).__init__(pid = 0x00)

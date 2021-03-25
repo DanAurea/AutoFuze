@@ -1,6 +1,6 @@
-from xcp.pdu.base import PacketBase
+from xcp.pdu.base import XCPPacketBase
 
-class Res(PacketBase):
+class Res(XCPPacketBase):
     
     def __init__(self):
         super(Res, self).__init__(pid = 0xFF)

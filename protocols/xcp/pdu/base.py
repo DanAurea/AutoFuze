@@ -1,4 +1,4 @@
-class PacketBase(object):
+class XCPPacketBase(object):
 
     def __init__(self, pid = 0x00):
         self._pid = pid

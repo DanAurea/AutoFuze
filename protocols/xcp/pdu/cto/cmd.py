@@ -1,6 +1,6 @@
-from xcp.pdu.base import PacketBase
+from xcp.pdu.base import XCPPacketBase
 
-class Cmd(PacketBase):
+class Cmd(XCPPacketBase):
     
     def __init__(self, pid = 0xC0):
         super(Cmd, self).__init__(pid = pid)

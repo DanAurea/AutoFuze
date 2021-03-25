@@ -53,7 +53,7 @@ class CanTransport(TransportBase):
         Creates a XCP CAN frame 
 
         :param      packet:  The packet to send.
-        :type       packet:  PacketBase
+        :type       packet:  XCPPacketBase
         
         :returns:   Bytes of the message related to its transport layer.
         :rtype:     bytes

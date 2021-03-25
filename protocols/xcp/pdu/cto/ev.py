@@ -1,6 +1,6 @@
-from xcp.pdu.base import PacketBase
+from xcp.pdu.base import XCPPacketBase
 
-class Ev(PacketBase):
+class Ev(XCPPacketBase):
     
     def __init__(self):
         super(Ev, self).__init__(pid = 0xFD)

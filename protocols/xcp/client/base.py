@@ -20,7 +20,7 @@ class ClientBase(object):
         layer set in client.
         
         :param      packet:  The packet
-        :type       packet:  PacketBase
+        :type       packet:  XCPPacketBase
         
         :returns:   The XCP frame.
         :rtype:     TransportBase

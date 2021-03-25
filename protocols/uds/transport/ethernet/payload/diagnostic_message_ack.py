@@ -1,0 +1,2 @@
+class DiagnosticMessageACK(object):
+    pass

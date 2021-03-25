@@ -1,0 +1,2 @@
+class VehicleAnnouncement(object):
+    pass
