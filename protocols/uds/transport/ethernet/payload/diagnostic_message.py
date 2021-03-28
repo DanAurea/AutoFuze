@@ -29,10 +29,10 @@ class DiagnosticMessage(DoIPMessage):
         self.target_address = target_address
 
     def __repr__(self):
-        s = '''{}\rPayload:
+        s = """{}\rPayload:
                     \r\tSource address : {}
                     \r\tTarget address : {}
-            '''.format  (
+            """.format  (
                             super().__repr__(),
                             hex(self.source_address),
                             hex(self.target_address)

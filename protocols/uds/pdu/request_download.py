@@ -4,6 +4,10 @@ from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
 class RequestDownload(ServiceBase):
+    """
+    Service allowing to start a download between tester and ECU.
+    Commonly used for flash updates.
+    """
 
     def __init__(self, data_format = 0x00, parameters_length = 0x44, memory_address = 0x00, memory_size = 0x00): 
         self.service_id            = ServiceID.REQUEST_DOWNLOAD

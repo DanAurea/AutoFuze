@@ -25,13 +25,13 @@ class ServiceBase(object):
         return struct.pack("!B", self.service_id)
 
     def __repr__(self):
-        '''
+        """
         Describe an object representation of Service that will helps for debugging purpose.
         PDU is the full list of bytes formed from user request. 
-        '''
+        """
 
-        s = '''PDU: {}
-                Service ID: {}'''.format(
+        s = """PDU: {}
+                Service ID: {}""".format(
                                             [hex(b) for b in self.__bytes__()],
                                             ServiceID(self.service_id).name
                                         )

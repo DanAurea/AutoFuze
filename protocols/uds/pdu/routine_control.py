@@ -6,7 +6,6 @@ from uds.pdu.base import ServiceBase
 
 class RoutineControl(ServiceBase):
     """
-    This class describes a routine control service.
     Routine control allows to run some routines on ECU based on an ID.
     """
 
@@ -22,8 +21,12 @@ class RoutineControl(ServiceBase):
 
     def __bytes__(self):
         """
-        Interpret the object as a sequence of bytes that will be used for
-        request delivery.
+        Return bytes representation.
+
+        Payload:
+        [0:1] : Service ID (0x31)
+        [1:2] : Sub function
+        [2:4] : Routine ID
         """
         b = bytearray()
 
@@ -32,13 +35,13 @@ class RoutineControl(ServiceBase):
         b.extend(struct.pack('!B', self.sub_function))
         b.extend(struct.pack('!H', self.routine_id))
 
-        return b
+        return bytes(b)
 
     def __repr__(self):
-        s = '''{}
+        s = """{}
                 Sub function: {}
                 Routine ID: {}
-            '''.format  (
+            """.format  (
                             super(RoutineControl, self).__repr__(),
                             self.SubFunction(self.sub_function).name,
                             self.routine_id

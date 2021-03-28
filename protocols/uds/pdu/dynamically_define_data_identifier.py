@@ -8,7 +8,7 @@ class DynamicallyDefineDataID(ServiceBase):
     class SubFunction(enum.IntEnum):
         ENABLE = 0x01
 
-    def __init__(self, sub_function = self.SubFunction.ENABLE): 
+    def __init__(self, sub_function = SubFunction.ENABLE): 
         self.service_id   = ServiceID.DYNAMICALLY_DEFINE_DATA_IDENTIFIER
         self.sub_function = sub_function
 

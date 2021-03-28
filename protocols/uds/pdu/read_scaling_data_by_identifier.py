@@ -8,7 +8,7 @@ class ReadScalingDataByID(ServiceBase):
     class SubFunction(enum.IntEnum):
         ENABLE = 0X01
 
-    def __init__(self, sub_function = self.SubFunction.ENABLE): 
+    def __init__(self, sub_function = SubFunction.ENABLE): 
         self.service_id   = ServiceID.READ_SCALING_DATA_BY_IDENTIFIER
         self.sub_function = sub_function
 

@@ -4,6 +4,10 @@ from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
 class ReadDiagnosticInformation(ServiceBase):
+    """
+    Service that allows to read ECU's DTC that has been triggered during
+    runtime because of some issues happening (faults).
+    """
 
     class SubFunction(enum.IntEnum):
         REPORT_NUMBER_OF_DTC                          = 0X01
@@ -15,7 +19,7 @@ class ReadDiagnosticInformation(ServiceBase):
         REPORT_NUMBER_OF_MIRROR_MEMORY_DTC            = 0X11
         REPORT_MIRROR_MEMORY_DTC                      = 0X0F
 
-    def __init__(self, sub_function = self.SubFunction.REPORT_DTC_SNAPSHOT, dtc = 0x000000, record = 0x00): 
+    def __init__(self, sub_function = SubFunction.REPORT_DTC_SNAPSHOT, dtc = 0x000000, record = 0x00): 
         self.service_id   = ServiceID.READ_DTC_INFORMATION
         self.sub_function = sub_function
         self.dtc          = dtc

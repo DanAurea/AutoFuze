@@ -2,10 +2,26 @@ from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
 class ClearDiagnosticInformation(ServiceBase):
+    """
+    Service that clears fault of a defined DTC.
+    """
 
-    def __init__(self, sub_function = 0x0): 
-        self.service_id   = ServiceID.CLEAR_DIAGNOSTIC_INFORMATION
-        self.sub_function = sub_function
+    def __init__(self, dtc = 0x000000): 
+        self.service_id = ServiceID.CLEAR_DIAGNOSTIC_INFORMATION
+        self.dtc        = dtc
 
     def __bytes__(self):
-        pass
+        """
+        Return bytes representation.
+
+        Payload:
+        [0:1] : Service ID
+        [1:4] : DTC
+        """
+        b = bytearray()
+
+        # Convert to big endian (network endianness)
+        b.extend(super(ClearDiagnosticInformation, self).__bytes__())
+        b.extend(struct.pack('!3B', self.dtc))
+
+        return bytes(b)
