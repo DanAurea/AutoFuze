@@ -30,5 +30,5 @@ class ServiceID(IntEnum):
     REQUEST_UPLOAD                     = 0X35
     TRANSFER_DATA                      = 0X36
     REQUEST_TRANSFER_EXIT              = 0X37
-    REQUEST_FILE_TRANQFER              = 0X38
+    REQUEST_FILE_TRANSFER              = 0X38
     NEGATIVE_RESPONSE                  = 0X7F

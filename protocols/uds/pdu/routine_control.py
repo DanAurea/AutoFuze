@@ -1,8 +1,6 @@
 import enum
-import sys
 import struct
 
-sys.path.append("../../")
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 

@@ -7,8 +7,13 @@ class ServiceBase(object):
     This class describes a unified diagnostic service (UDS) base.
     """
 
+    def __new__(cls, *args, **kwargs):
+        instance            = super(ServiceBase, cls).__new__(cls, *args, **kwargs)
+        instance.service_id = ServiceID.NEGATIVE_RESPONSE 
+        return instance
+
     def __init__(self):
-        self.service_id = ServiceID.NEGATIVE_RESPONSE
+        pass
 
     def __bytes__(self):
         """
