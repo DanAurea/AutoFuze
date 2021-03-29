@@ -1,4 +1,5 @@
 import enum
+import struct
 
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
@@ -9,12 +10,35 @@ class ControlDTCSettings(ServiceBase):
     """
 
     class SubFunction(enum.IntEnum):
-        ENABLE = 0x01
+        ON  = 0x01
+        OFF = 0x02
 
-    def __init__(self, sub_function = SubFunction.ENABLE, settings = []): 
+    def __init__(self, sub_function = SubFunction.ON, settings = []): 
         self.service_id   = ServiceID.CONTROL_DTC_SETTINGS
         self.sub_function = sub_function
-        self.settings     = settings
 
     def __bytes__(self):
-        pass
+        """
+        Return bytes representation.
+
+        Payload:
+        [0:1] : SERVICE_ID (0x85)
+        [1:2] : Sub function
+        """
+
+        b = bytearray()
+
+        b.extend(super(ControlDTCSettings, self).__bytes__())
+        b.extend(struct.pack("!B", self.sub_function))
+
+        return bytes(b)
+
+    def __repr__(self):
+        s = """{}
+                Sub function: {}
+            """.format  (
+                            super(ControlDTCSettings, self).__repr__(),
+                            self.sub_function.name,
+                        )
+
+        return s

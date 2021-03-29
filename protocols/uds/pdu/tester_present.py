@@ -10,7 +10,11 @@ class TesterPresent(ServiceBase):
     from current session. Sending tester present regularly avoid being kicked.
     """
 
-    def __init__(self, sub_function = 0x80):
+    class SubFunction(enum.IntEnum):
+        NONE          = 0x00
+        SUPRESS_REPLY = 0x80
+
+    def __init__(self, sub_function = SubFunction.SUPRESS_REPLY):
         self.service_id   = ServiceID.TESTER_PRESENT
         self.sub_function = sub_function
         
@@ -27,4 +31,14 @@ class TesterPresent(ServiceBase):
         b.extend(super(TesterPresent, self).__bytes__())
         b.extend(self.sub_function)
 
-        return b
+        return bytes(b)
+
+    def __repr__(self):
+        s = """{}
+                Sub function: {}
+            """.format  (
+                            super(TesterPresent, self).__repr__(),
+                            self.sub_function.name,
+                        )
+
+        return s

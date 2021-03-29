@@ -25,3 +25,13 @@ class ClearDiagnosticInformation(ServiceBase):
         b.extend(struct.pack('!3B', self.dtc))
 
         return bytes(b)
+
+    def __repr__(self):
+        s = """{}
+                DTC: {}
+            """.format  (
+                            super(ClearDiagnosticInformation, self).__repr__(),
+                            self.dtc,
+                        )
+
+        return s

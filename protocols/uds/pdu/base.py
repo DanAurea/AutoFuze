@@ -8,7 +8,7 @@ class ServiceBase(object):
     """
 
     def __new__(cls, *args, **kwargs):
-        instance            = super(ServiceBase, cls).__new__(cls, *args, **kwargs)
+        instance            = super(ServiceBase, cls).__new__(cls)
         instance.service_id = ServiceID.NEGATIVE_RESPONSE 
         return instance
 

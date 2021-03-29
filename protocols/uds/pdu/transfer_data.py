@@ -1,4 +1,5 @@
 import enum
+import struct
 
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
@@ -19,4 +20,19 @@ class TransferData(ServiceBase):
         self.data                   = data
         
     def __bytes__(self):
-        pass
+        """
+        Return bytes representation.
+
+        Payload:
+        [0:1]: Service ID (0X36)
+        [1:2]: Block sequence counter
+        [2:N]: Data (bytes)
+        """
+
+        b = bytearray()
+
+        b.extend(super(TransferData, self).__bytes__())
+        b.extend(struct.pack("!B", self.block_sequence_counter))
+        b.extend(self.data)
+
+        return bytes(b)

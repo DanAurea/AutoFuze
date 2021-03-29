@@ -10,9 +10,11 @@ class EcuReset(ServiceBase):
     """
 
     class SubFunction(enum.IntEnum):
-        UNCONTROLLED = 0x01 # Hard reset
-        CONTROLLED   = 0x02 # ON/OFF reset
-        SOFT         = 0x03 # Soft reset
+        UNCONTROLLED                 = 0x01 # Hard reset (Simulate power supply being plugged out)
+        CONTROLLED                   = 0x02 # ON/OFF reset (Store everything before properly shutdown)
+        SOFT                         = 0x03 # Soft reset (Stack pointer of the µC point to address of the main())
+        ENABLE_RAPID_POWER_SHUTDOWN  = 0x04 # Shutdown goes in "sleep mode" instead (quick power on afterwards)
+        DISABLE_RAPID_POWER_SHUTDOWN = 0x05
 
     def __init__(self, sub_function = SubFunction.CONTROLLED): 
         self.service_id   = ServiceID.ECU_RESET

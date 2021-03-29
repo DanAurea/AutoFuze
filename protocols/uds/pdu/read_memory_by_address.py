@@ -8,12 +8,25 @@ class ReadMemoryByAddress(ServiceBase):
     Service that read memory by specifying a memory address.
     """
 
-    class SubFunction(enum.IntEnum):
-        ENABLE = 0X01
+    def __init__(self, length_format = 0x11, memory_address = 0x0000): 
+        self.service_id     = ServiceID.READ_MEMORY_BY_ADDRESS
 
-    def __init__(self, sub_function = SubFunction.ENABLE): 
-        self.service_id   = ServiceID.READ_MEMORY_BY_ADDRESS
-        self.sub_function = sub_function
+        self.length_format  = length_format
+        self.memory_address = memory_address
 
     def __bytes__(self):
-        pass
+        """
+        Return bytes representation.
+
+        Payload:
+        [0:1] : SERVICE_ID (0x23)
+        [1:2] : Length format
+        [2:N] : Memory address
+        """
+
+        b = bytearray()
+
+        b.extend(super(ReadMemoryByAddress, self).__bytes__())
+        #TODO: Implement read data by memory logic
+        
+        return bytes(b)

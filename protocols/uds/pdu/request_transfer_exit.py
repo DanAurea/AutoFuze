@@ -9,4 +9,10 @@ class RequestTransferExit(ServiceBase):
         self.service_id = ServiceID.REQUEST_TRANSFER_EXIT
         
     def __bytes__(self):
-        pass
+        """
+        Return bytes representation.
+
+        Payload:
+        [0:1]: Service ID (0X37)
+        """
+        return super(RequestTransferExit, self).__bytes__()                        

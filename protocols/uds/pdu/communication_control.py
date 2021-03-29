@@ -1,4 +1,5 @@
 import enum
+import struct
 
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
@@ -24,4 +25,27 @@ class CommunicationControl(ServiceBase):
         self.sub_function = sub_function
 
     def __bytes__(self):
-        pass
+        """
+        Return bytes representation.
+
+        Payload:
+        [0:1] : Service ID (0x28)
+        [1:2] : Sub function
+        """
+
+        b = bytearray()
+
+        b.extend(super(CommunicationControl, self).__bytes__())
+        b.extend(struct.pack("!B", self.sub_function))
+
+        return bytes(b)
+
+    def __repr__(self):
+        s = """{}
+            Sub function: {}
+            """.format  (
+                            super(CommunicationControl, self).__repr__(),
+                            self.sub_function.name,
+                        )
+
+        return s

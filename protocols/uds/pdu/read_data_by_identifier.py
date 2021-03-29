@@ -1,4 +1,5 @@
 import enum
+import struct
 
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
@@ -13,4 +14,27 @@ class ReadDataByID(ServiceBase):
         self.did        = did
 
     def __bytes__(self):
-        pass
+        """
+        Return bytes representation.
+
+        Payload:
+        [0:1] : SERVICE_ID (0x22)
+        [1:3] : Data ID (DID)
+        """
+
+        b = bytearray()
+
+        b.extend(super(ReadDataByID, self).__bytes__())
+        b.extend(struct.pack("!H", self.did))
+
+        return bytes(b)
+
+    def __repr__(self):
+        s = """{}
+                DID: {}
+            """.format  (
+                            super(ReadDataByID, self).__repr__(),
+                            self.did,
+                        )
+
+        return s

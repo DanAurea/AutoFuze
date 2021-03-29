@@ -32,12 +32,12 @@ class DoIPMessage(BigEndianStructure):
         self.payload_length           = payload_length
 
     def __repr__(self):
-        header =    '''\rDoIP Header:\
+        header =    """\rDoIP Header:\
                         \r\t Protocol version: {} 
                         \r\t Inverse protocol version: {} 
                         \r\t Payload type: {} 
                         \r\t Payload length: {} bytes
-                    '''.format  (
+                    """.format  (
                                     str(DoIPProtocolVersion(self.protocol_version)),
                                     hex(self.inverse_protocol_version & 0xFF),
                                     str(DoIPPayloadType(self.payload_type)),

@@ -1,16 +1,42 @@
 import enum
+import struct
 
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
 class DynamicallyDefineDataID(ServiceBase):
+    """
+    Service allowing to subset several data identifier into one unique identifier.
+    It's allow to read several data in a row when calling read data identifier service (0x22).
+    """
 
     class SubFunction(enum.IntEnum):
-        ENABLE = 0x01
+        DEFINE_BY_IDENTIFIER              = 0x01
+        DEFINE_BY_MEMORY_ADDRESS_AND_SIZE = 0x02
+        DEFINE_BY_IDENTIFIER_AND_MEMORY   = 0x03
 
-    def __init__(self, sub_function = SubFunction.ENABLE): 
+    def __init__(self, sub_function = SubFunction.DEFINE_BY_IDENTIFIER, did = 0x0000): 
         self.service_id   = ServiceID.DYNAMICALLY_DEFINE_DATA_IDENTIFIER
         self.sub_function = sub_function
+        self.did          = did
 
     def __bytes__(self):
-        pass
+        """
+        Return bytes representation.
+
+        Payload:
+        [0:1] : SERVICE_ID (0x2C)
+        [1:2] : Sub function
+        [2:4] : Data ID (DID)
+        """
+
+        b = bytearray()
+
+        b.extend(super(DynamicallyDefineDataID, self).__bytes__())
+        b.extend(struct.pack("!B", self.sub_function))
+
+        # TODO: Implement logic related to sub function
+        if self.sub_function == self.SubFunction.DEFINE_BY_IDENTIFIER:
+            b.extend(struct.pack("!H", self.did))
+
+        return bytes(b)
