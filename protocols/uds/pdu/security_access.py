@@ -25,10 +25,10 @@ class SecurityAccess(ServiceBase):
         REQUEST_SEED = 0x01
         SEND_KEY     = 0x02
 
-    def __init__(self, sub_function = SubFunction.REQUEST_SEED, key = None):
-        self.sub_function = sub_function        
+    def __init__(self, sub_function = SubFunction.REQUEST_SEED, level = 0, key = None):
+        self.sub_function = sub_function # TODO: Define sub_function calculation based on level (@property ?)
         self.key          = key
-        
+    
     def __bytes__(self):
         """
         Return bytes representation.

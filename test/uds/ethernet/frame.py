@@ -6,8 +6,13 @@ sys.path.append("../../../protocols")
 from uds import *
 from uds.pdu.session_control import SessionControl
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
+from uds.transport.ethernet.payload.diagnostic_message import DiagnosticMessage
 
-service = SessionControl()
+diagnostic_message = DiagnosticMessage()
+service            = SessionControl()
 
 print(service)
-print(bytes(service))
+
+# Craft a DoIP packet by getting Ethernet transport and craft final message as Scapy
+ethernet_diagnostic_message = diagnostic_message / service
+print(ethernet_diagnostic_message)

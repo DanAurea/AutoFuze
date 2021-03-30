@@ -31,6 +31,21 @@ class DoIPMessage(BigEndianStructure):
         self.payload_type             = payload_type
         self.payload_length           = payload_length
 
+    def __truediv__(self, payload):
+        """
+        Override true division operator so packet crafting will be prettier.
+        
+        :param      payload:  The payload
+        :type       payload:  PayloadType
+        
+        :returns:   The final DoIP message
+        :rtype:     bytes
+        """
+        payload_bytes = bytes(payload)
+        self.payload_length = len(payload_bytes)
+
+        return bytes(self) + payload_bytes
+
     def __repr__(self):
         header =    """\rDoIP Header:\
                         \r\t Protocol version: {} 

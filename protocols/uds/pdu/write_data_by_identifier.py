@@ -6,7 +6,7 @@ from uds.pdu.base import ServiceBase
 
 class WriteDataByID(ServiceBase):
     """
-    This class describes a write data by id.
+    Write data on ECU by locating it with an ID.
     """
 
     __slots__ = ('did',) # Space saving + faster access (good for a fuzzer so)
@@ -14,7 +14,7 @@ class WriteDataByID(ServiceBase):
     SERVICE_ID = ServiceID.WRITE_DATA_BY_IDENTIFIER
     
     def __init__(self, did = 0x0000):
-        self.did        = did
+        self.did = did
 
     def __bytes__(self):
         """
