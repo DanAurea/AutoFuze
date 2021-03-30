@@ -7,9 +7,12 @@ class ReadMemoryByAddress(ServiceBase):
     """
     Service that read memory by specifying a memory address.
     """
+    
+    __slots__ = ('length_format', 'memory_address',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.READ_MEMORY_BY_ADDRESS
 
     def __init__(self, length_format = 0x11, memory_address = 0x0000): 
-        self.service_id     = ServiceID.READ_MEMORY_BY_ADDRESS
 
         self.length_format  = length_format
         self.memory_address = memory_address

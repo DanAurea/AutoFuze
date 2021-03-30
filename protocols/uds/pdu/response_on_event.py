@@ -10,6 +10,10 @@ class ResponseOnEvent(ServiceBase):
     Based on some events ECU can start/stop to transmit response.
     """
 
+    __slots__ = ('sub_function',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.RESPONSE_ON_EVENT
+    
     class SubFunction(enum.IntEnum):
         STOP_RESPONSE_ON_EVENT       = 0X00
         ON_DTC_STATUS_CHANGE         = 0X01
@@ -21,7 +25,6 @@ class ResponseOnEvent(ServiceBase):
         ON_COMPARISON_OF_VALUES      = 0X07
 
     def __init__(self, sub_function = SubFunction.ON_DTC_STATUS_CHANGE):
-        self.service_id   = ServiceID.RESPONSE_ON_EVENT
         self.sub_function = sub_function
         
     def __bytes__(self):

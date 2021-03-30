@@ -13,10 +13,12 @@ class RequestDownload(ServiceBase):
     No encryption  = 0x00
     No compression = 0x00
     """
+    
+    __slots__ = ('data_format', 'memory_address', 'memory_size', 'length_memory_address', 'length_memory_size',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.REQUEST_DOWNLOAD
 
     def __init__(self, data_format = 0x00, parameters_length = 0x44, memory_address = 0x00, memory_size = 0x00):
-        self.service_id            = ServiceID.REQUEST_DOWNLOAD
-        
         self.data_format           = data_format # [0:4] Encyrption method; [4:8] Compression method
         
         self.length_memory_address = parameters_length & 0xFF

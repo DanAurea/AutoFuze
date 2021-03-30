@@ -8,9 +8,12 @@ class ReadDataByID(ServiceBase):
     """
     Service that read a data into ECU's memory by referring to a Data ID (DID).
     """
+    
+    __slots__ = ('did',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.READ_DATA_BY_IDENTIFIER
 
     def __init__(self, did = 0x0000): 
-        self.service_id = ServiceID.READ_DATA_BY_IDENTIFIER
         self.did        = did
 
     def __bytes__(self):

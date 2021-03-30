@@ -10,13 +10,16 @@ class DynamicallyDefineDataID(ServiceBase):
     It's allow to read several data in a row when calling read data identifier service (0x22).
     """
 
+    __slots__ = ('did', 'sub_function',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID  = ServiceID.DYNAMICALLY_DEFINE_DATA_IDENTIFIER
+    
     class SubFunction(enum.IntEnum):
         DEFINE_BY_IDENTIFIER              = 0x01
         DEFINE_BY_MEMORY_ADDRESS_AND_SIZE = 0x02
         DEFINE_BY_IDENTIFIER_AND_MEMORY   = 0x03
 
     def __init__(self, sub_function = SubFunction.DEFINE_BY_IDENTIFIER, did = 0x0000): 
-        self.service_id   = ServiceID.DYNAMICALLY_DEFINE_DATA_IDENTIFIER
         self.sub_function = sub_function
         self.did          = did
 

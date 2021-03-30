@@ -9,12 +9,15 @@ class ControlDTCSettings(ServiceBase):
     Control DTC policy.
     """
 
+    __slots__ = ('sub_function',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID  = ServiceID.CONTROL_DTC_SETTINGS
+    
     class SubFunction(enum.IntEnum):
         ON  = 0x01
         OFF = 0x02
 
     def __init__(self, sub_function = SubFunction.ON, settings = []): 
-        self.service_id   = ServiceID.CONTROL_DTC_SETTINGS
         self.sub_function = sub_function
 
     def __bytes__(self):

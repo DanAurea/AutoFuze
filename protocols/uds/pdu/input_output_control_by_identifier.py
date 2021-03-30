@@ -6,6 +6,10 @@ from uds.pdu.base import ServiceBase
 
 class IOControlByID(ServiceBase):
 
+    __slots__ = ('ecu_id', 'parameter',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.INPUT_OUTPUT_CONTROL_BY_IDENTIFIER
+    
     class Parameter(enum.IntEnum):
         NONE                   = 0x00
         RETURN_CONTROL_TO_ECU  = 0x01
@@ -14,9 +18,8 @@ class IOControlByID(ServiceBase):
         SHORT_TERM_ADJUSTEMENT = 0x04
 
     def __init__(self, ecu_id = 0x00, parameter = Parameter.NONE): 
-        self.service_id = ServiceID.INPUT_OUTPUT_CONTROL_BY_IDENTIFIER
-        self.ecu_id     = ecu_id
-        self.parameter  = parameter
+        self.ecu_id      = ecu_id
+        self.parameter   = parameter
 
     def __bytes__(self):
         """

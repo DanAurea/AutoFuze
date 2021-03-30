@@ -6,10 +6,10 @@ class ServiceBase(object):
     """
     This class describes a unified diagnostic service (UDS) base.
     """
+    SERVICE_ID = ServiceID.NEGATIVE_RESPONSE
 
     def __new__(cls, *args, **kwargs):
-        instance            = super(ServiceBase, cls).__new__(cls)
-        instance.service_id = ServiceID.NEGATIVE_RESPONSE 
+        instance             = super(ServiceBase, cls).__new__(cls)
         return instance
 
     def __init__(self):
@@ -22,7 +22,7 @@ class ServiceBase(object):
         :returns:   service_id
         :rtype:     byte
         """
-        return struct.pack("!B", self.service_id)
+        return struct.pack("!B", self.SERVICE_ID)
 
     def __repr__(self):
         """
@@ -33,7 +33,7 @@ class ServiceBase(object):
         s = """PDU: {}
                 Service ID: {}""".format(
                                             [hex(b) for b in self.__bytes__()],
-                                            ServiceID(self.service_id).name
+                                            self.SERVICE_ID.name
                                         )
 
         return s

@@ -9,6 +9,10 @@ class ReadDataByIDPeriodic(ServiceBase):
     Service that read a data into ECU's memory by referring to a Data ID (DID) periodically.
     """
 
+    __slots__ = ('did', 'mode',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.READ_DATA_BY_IDENTIFIER_PERIODIC
+    
     class TransmissionMode(enum.IntEnum):
         SEND_AT_SLOW_RATE   = 0X01
         SEND_AT_MEDIUM_RATE = 0X02
@@ -16,7 +20,6 @@ class ReadDataByIDPeriodic(ServiceBase):
         STOP_SENDING        = 0X04
 
     def __init__(self, mode = TransmissionMode.SEND_AT_MEDIUM_RATE, did = 0x0000): 
-        self.service_id = ServiceID.READ_DATA_BY_IDENTIFIER_PERIODIC
         self.mode       = mode
         self.did        = did
 

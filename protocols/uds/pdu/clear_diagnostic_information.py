@@ -6,9 +6,12 @@ class ClearDiagnosticInformation(ServiceBase):
     Service that clears fault of a defined DTC.
     """
 
+    __slots__ = ('dtc',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.CLEAR_DIAGNOSTIC_INFORMATION
+    
     def __init__(self, dtc = 0x000000): 
-        self.service_id = ServiceID.CLEAR_DIAGNOSTIC_INFORMATION
-        self.dtc        = dtc
+        self.dtc         = dtc
 
     def __bytes__(self):
         """

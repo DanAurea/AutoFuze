@@ -17,12 +17,15 @@ class SecurityAccess(ServiceBase):
     ECU: Answer with ACK/NACK
     """
 
+    __slots__ = ('key', 'sub_function',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.SECURITY_ACCESS
+    
     class SubFunction(enum.IntEnum):
         REQUEST_SEED = 0x01
         SEND_KEY     = 0x02
 
     def __init__(self, sub_function = SubFunction.REQUEST_SEED, key = None):
-        self.service_id   = ServiceID.SECURITY_ACCESS
         self.sub_function = sub_function        
         self.key          = key
         

@@ -8,9 +8,11 @@ class RequestUpload(ServiceBase):
     Service allowing to read the downloaded firmware from ECU.
     """
 
-    def __init__(self, memory_address = 0x0000, memory_size = 0x0000):
-        self.service_id     = ServiceID.REQUEST_UPLOAD
-        
+    __slots__ = ('memory_address', 'memory_size',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID     = ServiceID.REQUEST_UPLOAD
+    
+    def __init__(self, memory_address = 0x0000, memory_size = 0x0000):    
         self.memory_address = memory_address # Mandatory field
         self.memory_size    = memory_size # Mandatory field
         

@@ -9,13 +9,16 @@ class RoutineControl(ServiceBase):
     Routine control allows to run some routines on ECU based on an ID.
     """
 
+    __slots__ = ('sub_function', 'routine_id',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID   = ServiceID.ROUTINE_CONTROL
+    
     class SubFunction(enum.IntEnum):
         START           = 0x01
         STOP            = 0x02
         REQUEST_RESULTS = 0x03
 
     def __init__(self, sub_function = SubFunction.START, routine_id = 0x0000):
-        self.service_id   = ServiceID.ROUTINE_CONTROL
         self.sub_function = self.SubFunction.START
         self.routine_id   = routine_id
 

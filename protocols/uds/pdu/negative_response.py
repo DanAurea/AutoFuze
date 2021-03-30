@@ -6,9 +6,8 @@ class NegativeResponse(ServiceBase):
     Generic service that represents an error.
     Usually sent when something has gone wrong.
     """
-
-    def __init__(self):
-        self.service_id = ServiceID.NEGATIVE_RESPONSE
+    
+    SERVICE_ID = ServiceID.NEGATIVE_RESPONSE
 
     def __bytes__(self):
         pass

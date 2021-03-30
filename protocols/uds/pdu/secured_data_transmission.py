@@ -5,8 +5,7 @@ from uds.pdu.base import ServiceBase
 
 class SecuredDataTransmission(ServiceBase):
 
-    def __init__(self):
-        self.service_id = ServiceID.SECURED_DATA_TRANSMISSION
-        
+    SERVICE_ID = ServiceID.SECURED_DATA_TRANSMISSION
+            
     def __bytes__(self):
         pass

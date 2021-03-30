@@ -9,6 +9,10 @@ class EcuReset(ServiceBase):
     Service that reset ECU with different ways.
     """
 
+    __slots__ = ('sub_function',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID  = ServiceID.ECU_RESET
+    
     class SubFunction(enum.IntEnum):
         UNCONTROLLED                 = 0x01 # Hard reset (Simulate power supply being plugged out)
         CONTROLLED                   = 0x02 # ON/OFF reset (Store everything before properly shutdown)
@@ -17,7 +21,6 @@ class EcuReset(ServiceBase):
         DISABLE_RAPID_POWER_SHUTDOWN = 0x05
 
     def __init__(self, sub_function = SubFunction.CONTROLLED): 
-        self.service_id   = ServiceID.ECU_RESET
         self.sub_function = sub_function
 
     def __bytes__(self):

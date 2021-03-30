@@ -12,10 +12,12 @@ class TransferData(ServiceBase):
     Size of data shouldn't be more than maximum block size 
     supported by ECU (known with RequestDownload). 
     """
+    
+    __slots__ = ('block_sequence_counter', 'data',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.TRANSFER_DATA
 
     def __init__(self, block_sequence_counter, data:bytes):
-        self.service_id             = ServiceID.TRANSFER_DATA
-        
         self.block_sequence_counter = block_sequence_counter
         self.data                   = data
         

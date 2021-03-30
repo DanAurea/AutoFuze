@@ -5,6 +5,16 @@ from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
 class AccessTimingParameters(ServiceBase):
+    """
+    Access timing parameters in which each request/response should
+    be send before timer expires.
+
+    Tester can change timing parameters to given values.
+    """
+
+    __slots__ = ('sub_function',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID  = ServiceID.ACCESS_TIMING_PARAMETERS
 
     class SubFunction(enum.IntEnum):
         READ_EXTENDED_TIMING_PARAMETER_SET      = 0x01
@@ -12,8 +22,7 @@ class AccessTimingParameters(ServiceBase):
         READ_CURRENTLY_ACTIVE_TIMING_PARAMETERS = 0x03
         SET_TIMING_PARAMETERS_TO_GIVEN_VALUES   = 0x04
 
-    def __init__(self, sub_function = 0x0): 
-        self.service_id   = ServiceID.ACCESS_TIMING_PARAMETERS
+    def __init__(self, sub_function = 0x0, timing_param_record = ): 
         self.sub_function = sub_function
 
     def __bytes__(self):
@@ -30,7 +39,10 @@ class AccessTimingParameters(ServiceBase):
         b.extend(super(AccsTimingParameters, self).__bytes__())
         b.extend(struct.pack("!B", self.sub_function))
 
-        # TODO: Implement set values mechanism (ECU timeouts)
+        # Set ECU timeouts to user desired values, this will impact sequence flow of
+        # subsequent requests and timing to meet.
+        if self.sub_function == self.SubFunction.SET_TIMING_PARAMETERS_TO_GIVEN_VALUES:
+            pass
 
         return bytes(b)
 

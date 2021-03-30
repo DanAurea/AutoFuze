@@ -9,8 +9,11 @@ class WriteDataByID(ServiceBase):
     This class describes a write data by id.
     """
 
+    __slots__ = ('did',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.WRITE_DATA_BY_IDENTIFIER
+    
     def __init__(self, did = 0x0000):
-        self.service_id = ServiceID.WRITE_DATA_BY_IDENTIFIER
         self.did        = did
 
     def __bytes__(self):

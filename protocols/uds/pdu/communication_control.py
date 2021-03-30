@@ -12,6 +12,10 @@ class CommunicationControl(ServiceBase):
     process (flash etc...)
     """
 
+    __slots__ = ('sub_function',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID  = ServiceID.COMMUNICATION_CONTROL
+    
     class SubFunction(enum.IntEnum):
         ENABLE = 0x01
 
@@ -21,7 +25,6 @@ class CommunicationControl(ServiceBase):
         DISABLE_RX = 0x02
 
     def __init__(self, sub_function = SubFunction.ENABLE, communication = Communication.ENABLE_TX): 
-        self.service_id   = ServiceID.COMMUNICATION_CONTROL
         self.sub_function = sub_function
 
     def __bytes__(self):

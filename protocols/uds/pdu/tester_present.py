@@ -10,12 +10,15 @@ class TesterPresent(ServiceBase):
     from current session. Sending tester present regularly avoid being kicked.
     """
 
+    __slots__ = ('sub_function',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.TESTER_PRESENT
+    
     class SubFunction(enum.IntEnum):
         NONE          = 0x00
         SUPRESS_REPLY = 0x80
 
     def __init__(self, sub_function = SubFunction.SUPRESS_REPLY):
-        self.service_id   = ServiceID.TESTER_PRESENT
         self.sub_function = sub_function
         
     def __bytes__(self):

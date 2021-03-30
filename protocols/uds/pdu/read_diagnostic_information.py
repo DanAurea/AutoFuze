@@ -9,6 +9,10 @@ class ReadDiagnosticInformation(ServiceBase):
     Service that allows to read ECU's DTC that has been triggered during
     runtime because of some issues happening (faults).
     """
+    
+    __slots__ = ('dtc', 'record', 'sub_function',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID   = ServiceID.READ_DTC_INFORMATION
 
     class SubFunction(enum.IntEnum):
         REPORT_NUMBER_OF_DTC                                        = 0X01
@@ -35,7 +39,6 @@ class ReadDiagnosticInformation(ServiceBase):
         REPORT_DTC_WITH_PERMANENT_STATUS                            = 0X15
 
     def __init__(self, sub_function = SubFunction.REPORT_DTC_SNAPSHOT, dtc = 0x000000, record = 0x00): 
-        self.service_id   = ServiceID.READ_DTC_INFORMATION
         self.sub_function = sub_function
         self.dtc          = dtc
         self.record       = record

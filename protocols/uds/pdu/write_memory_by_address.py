@@ -10,9 +10,11 @@ class WriteMemoryByAddress(ServiceBase):
     Usually used for clearing NVM or changing calibration values.
     """
 
-    def __init__(self, data:bytes, length_format = 0x10, memory_address = 0x0000):
-        self.service_id     = ServiceID.WRITE_DATA_BY_IDENTIFIER
-        
+    __slots__ = ('data', 'length_format', 'memory_address', 'memory_size',) # Space saving + faster access (good for a fuzzer so)
+
+    SERVICE_ID = ServiceID.WRITE_DATA_BY_IDENTIFIER
+    
+    def __init__(self, data:bytes, length_format = 0x10, memory_address = 0x0000):    
         self.length_format  = length_format
         self.memory_address = memory_address
         self.memory_size    = memory_size
