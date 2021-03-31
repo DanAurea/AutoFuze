@@ -1,10 +1,7 @@
-import sys
+from ctypes import c_uint16
 
-sys.path.append("../")
-sys.path.append("../../")
-
-from ctypes import BigEndianStructure, c_uint16, sizeof
 from uds.transport.ethernet.message import DoIPMessage
+from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
 
 class DiagnosticMessage(DoIPMessage):
     """
@@ -24,7 +21,7 @@ class DiagnosticMessage(DoIPMessage):
                 ]
 
     def __init__(self, source_address = 0x0000, target_address = 0x0000):
-        super(DiagnosticMessage, self).__init__()
+        super(DiagnosticMessage, self).__init__(payload_type = DoIPPayloadType.DIAGNOSTIC_MESSAGE)
         self.source_address = source_address
         self.target_address = target_address
 
@@ -38,4 +35,9 @@ class DiagnosticMessage(DoIPMessage):
                             hex(self.target_address)
                         )
 
+        if self.payload:
+            s = """{}\r{}""".format  (
+                                s,
+                                self.payload
+                            )
         return s

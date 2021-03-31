@@ -1,6 +1,6 @@
-from enum import IntEnum
+import enum
 
-class DoIPPayloadType(IntEnum):
+class DoIPPayloadType(enum.IntEnum):
     """
     This class enumerates all DoIP payload types.
     """
