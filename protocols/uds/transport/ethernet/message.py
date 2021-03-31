@@ -69,6 +69,19 @@ class DoIPMessage(BigEndianStructure):
         self.payload = payload
         return self
 
+    def __bytes__(self):
+        """
+        Bytes representation of the final DoIP Message.
+
+        DoIPHeader / Payload / PDU (if there's one) should all being concatenated.
+        """
+        b = bytearray(self) # Hack to avoid recursive call to __bytes__()
+
+        if self.payload:
+            b += bytes(self.payload)
+
+        return bytes(b)
+
     def __repr__(self):
         header =    """DoIP Header:\
                         \r\t Protocol version: {} 

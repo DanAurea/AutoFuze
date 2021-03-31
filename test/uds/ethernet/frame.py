@@ -12,9 +12,6 @@ from uds.transport.ethernet.payload.vehicle_identification import VehicleIdentif
 diagnostic_message = DiagnosticMessage()
 service            = SessionControl(session = SessionControl.Session.EXTENDED_DIAGNOSTIC_SESSION)
 
-
-vehicle_identification = VehicleIdentificationVIN("0123456789ABCDEFG")
-
 # Craft a DoIP packet by getting Ethernet transport and craft final message as Scapy
 ethernet_diagnostic_message = diagnostic_message / service
-print(ethernet_diagnostic_message)
+print(ethernet_diagnostic_message, bytes(ethernet_diagnostic_message))
