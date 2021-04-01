@@ -1,5 +1,8 @@
 from ctypes import c_uint16, sizeof
 
+import sys
+
+sys.path.append("../../../../")
 from uds.transport.ethernet.message import DoIPMessage
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
 
@@ -12,7 +15,7 @@ class AliveCheckRequest(DoIPMessage):
                 ]
     
     def __init__(self):
-            super(AliveCheckRequest, self).__init__(payload_type = DoIPPayloadType.ALIVE_CHECK_REQUEST)
+        super(AliveCheckRequest, self).__init__(payload_type = DoIPPayloadType.ALIVE_CHECK_REQUEST)
 
 class AliveCheckResponse(DoIPMessage):
     """
@@ -38,3 +41,6 @@ class AliveCheckResponse(DoIPMessage):
                         )       
 
         return s
+
+mess = AliveCheckResponse()
+print(mess)

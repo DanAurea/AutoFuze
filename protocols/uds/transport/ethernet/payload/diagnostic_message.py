@@ -24,7 +24,36 @@ class DiagnosticMessage(DoIPMessage):
         super(DiagnosticMessage, self).__init__(payload_type = DoIPPayloadType.DIAGNOSTIC_MESSAGE)
         self.source_address = source_address
         self.target_address = target_address
+        self.pdu            = None
 
+    def __truediv__(self, pdu):
+        """
+        Override true division operator so packet crafting will be prettier.
+        
+        :param      payload:  The payload
+        :type       payload:  PayloadType
+        
+        :returns:   The final DoIP message
+        :rtype:     bytes
+        """
+        self.pdu = pdu
+        return self
+
+    def __bytes__(self):
+        """
+        Bytes representation of the final DoIP Message.
+
+        DoIPHeader / Payload / PDU (if there's one) should all being concatenated.
+        """
+        b = bytearray(self) # Hack to avoid recursive call to __bytes__()
+
+        if self.pdu:
+            b += bytes(self.pdu)
+        else:
+            #TODO: Log warning PDU is empty
+            pass
+            
+        return bytes(b)
     def __repr__(self):
         s = """{}\rPayload:
                     \r\tSource address : {}

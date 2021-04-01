@@ -29,8 +29,10 @@ class DoIPMessage(BigEndianStructure):
         self._protocol_version         = DoIPProtocolVersion(protocol_version)
         self._inverse_protocol_version = inverse_protocol_version
         self._payload_type             = DoIPPayloadType(payload_type)
-        self._payload_length           = 0 # TODO : Auto compute payload length when subclassing (should avoid to compute header maybe refactoring is required)
+        self._payload_length           = 0
 
+        # TODO: Do not mixin payload/pdu (proper to diagnostic message) furthermore payload should be automatically set by subclassing
+        # this will allow to update automatically payload length
         self.payload                   = payload
 
     @property
@@ -55,32 +57,6 @@ class DoIPMessage(BigEndianStructure):
 
         if self._payload:
             self._payload_length = len(bytes(self._payload))
-
-    def __truediv__(self, payload):
-        """
-        Override true division operator so packet crafting will be prettier.
-        
-        :param      payload:  The payload
-        :type       payload:  PayloadType
-        
-        :returns:   The final DoIP message
-        :rtype:     bytes
-        """
-        self.payload = payload
-        return self
-
-    def __bytes__(self):
-        """
-        Bytes representation of the final DoIP Message.
-
-        DoIPHeader / Payload / PDU (if there's one) should all being concatenated.
-        """
-        b = bytearray(self) # Hack to avoid recursive call to __bytes__()
-
-        if self.payload:
-            b += bytes(self.payload)
-
-        return bytes(b)
 
     def __repr__(self):
         header =    """DoIP Header:\
