@@ -36,7 +36,13 @@ class DiagnosticMessage(DoIPMessage):
         :returns:   The final DoIP message
         :rtype:     bytes
         """
-        self.pdu = pdu
+        if pdu:
+            self.pdu             = pdu
+            self._payload_length += len(bytes(self.pdu))
+        else:
+            # TODO: Log warning diagnostic PDU can't be empty ?
+            pass
+
         return self
 
     def __bytes__(self):
@@ -52,7 +58,7 @@ class DiagnosticMessage(DoIPMessage):
         else:
             #TODO: Log warning PDU is empty
             pass
-            
+
         return bytes(b)
     def __repr__(self):
         s = """{}\rPayload:

@@ -1,8 +1,5 @@
 from ctypes import c_uint16, sizeof
 
-import sys
-
-sys.path.append("../../../../")
 from uds.transport.ethernet.message import DoIPMessage
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
 
@@ -10,7 +7,7 @@ class AliveCheckRequest(DoIPMessage):
     """
     Can be sent before closing socket to ensure node is still alive or not.
     """
-    _pack_ = 1
+    _pack_   = 1
     _fields_ =  [
                 ]
     
@@ -24,7 +21,7 @@ class AliveCheckResponse(DoIPMessage):
     If source address doesn't match with the registered source address of the connection then socket
     should be closed.
     """
-    _pack_ = 1
+    _pack_   = 1
     _fields_ =  [
                     ("source_address", c_uint16)
                 ]
@@ -41,6 +38,3 @@ class AliveCheckResponse(DoIPMessage):
                         )       
 
         return s
-
-mess = AliveCheckResponse()
-print(mess)

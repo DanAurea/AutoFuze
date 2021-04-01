@@ -1,4 +1,4 @@
-from ctypes import BigEndianStructure, c_uint8, c_uint16, c_uint32
+from ctypes import BigEndianStructure, c_uint8, c_uint16, c_uint32, sizeof
 
 from uds.transport.ethernet.enum.protocol_version import DoIPProtocolVersion
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
@@ -25,14 +25,20 @@ class DoIPMessage(BigEndianStructure):
                     #("payload", x * c_byte) Payload content
                 ]
 
+    # TODO: Split header/message would remove requiring of this constant and would improve future maintenance
+    # if ISO 13400 is updated. If a split is done architecture should be refactored a bit otherwise DoIP header (above _fields_) won't be directly added
+    # to child classes. 
+    # 
+    # Maybe a _truediv_ could be use like I do with PDU and Diagnostic message when __bytes__() is called or payload could be initialized with 
+    # header at the end ?
+    DOIP_HEADER_SIZE = 8
+
     def __init__(self, protocol_version = DoIPProtocolVersion.ISO_13400_2_2012, inverse_protocol_version = 0xFF - DoIPProtocolVersion.ISO_13400_2_2012, payload_type = DoIPPayloadType.GENERIC_DOIP_HEADER_NEGATIVE_ACK, payload = None):
         self._protocol_version         = DoIPProtocolVersion(protocol_version)
         self._inverse_protocol_version = inverse_protocol_version
         self._payload_type             = DoIPPayloadType(payload_type)
-        self._payload_length           = 0
+        self._payload_length           = sizeof(self) - self.DOIP_HEADER_SIZE
 
-        # TODO: Do not mixin payload/pdu (proper to diagnostic message) furthermore payload should be automatically set by subclassing
-        # this will allow to update automatically payload length
         self.payload                   = payload
 
     @property
