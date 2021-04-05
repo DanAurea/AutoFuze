@@ -29,3 +29,18 @@ class DoIPEntityStatusResponse(DoIPMessage):
     
     def __init__(self):
         super(DoIPEntityStatusResponse, self).__init__(payload_type = DoIPPayloadType.DOIP_ENTITY_STATUS_RESPONSE)
+
+    def __repr__(self):
+        s = """{}\rPayload:
+                    \r\tNode type: {}
+                    \r\tMax open sockets: {}
+                    \r\tCurrently open socket: {}
+                    \r\tMax data size: {}
+            """.format  (
+                            super(DoIPEntityStatusResponse, self).__repr__(),
+                            self.max_open_sockets,
+                            self.currently_open_socket,
+                            self.max_data_size,
+                        )
+
+        return s

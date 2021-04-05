@@ -2,6 +2,7 @@ import enum
 import struct
 
 from uds.enum.service_id import ServiceID
+from uds.enum.session import Session
 from uds.pdu.base import ServiceBase
 
 class SessionControl(ServiceBase):
@@ -13,13 +14,6 @@ class SessionControl(ServiceBase):
     __slots__ = ('session',) # Space saving + faster access (good for a fuzzer so)
 
     SERVICE_ID = ServiceID.DIAGNOSTIC_SESSION_CONTROL
-    
-    class Session(enum.IntEnum):
-        DEFAULT_SESSION                  = 0x01
-        PROGRAMMING_SESSION              = 0x02
-        EXTENDED_DIAGNOSTIC_SESSION      = 0x03
-        SAFETY_SYSTEM_DIAGNOSTIC_SESSION = 0x04
-        # OEM SPECIFIC SESSION >= 0x05
 
     def __init__(self, session = Session.DEFAULT_SESSION):
         self.session    = session

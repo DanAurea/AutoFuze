@@ -1,4 +1,4 @@
-from ctypes import c_uint16
+from ctypes import c_uint16, sizeof
 
 from uds.transport.ethernet.message import DoIPMessage
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
@@ -16,7 +16,7 @@ class DiagnosticMessage(DoIPMessage):
     _pack_   = 1
     _fields_ = [
                     ("source_address", c_uint16),
-                    ("target_address", c_uint16)
+                    ("target_address", c_uint16),
                     #(data  * c_byte) Variable data length
                 ]
 
@@ -38,7 +38,9 @@ class DiagnosticMessage(DoIPMessage):
         """
         if pdu:
             self.pdu             = pdu
-            self._payload_length += len(bytes(self.pdu))
+            # Allow reuse of current instance for quick packet crafting.
+            # Component system should be used to avoid substracting DOIP_HEADER_SIZE manually
+            self._payload_length = sizeof(self) + len(bytes(self.pdu)) - DoIPMessage.DOIP_HEADER_SIZE
         else:
             # TODO: Log warning diagnostic PDU can't be empty ?
             pass
@@ -54,12 +56,13 @@ class DiagnosticMessage(DoIPMessage):
         b = bytearray(self) # Hack to avoid recursive call to __bytes__()
 
         if self.pdu:
-            b += bytes(self.pdu)
+            b.extend(bytes(self.pdu))
         else:
             #TODO: Log warning PDU is empty
             pass
 
         return bytes(b)
+
     def __repr__(self):
         s = """{}\rPayload:
                     \r\tSource address : {}
@@ -70,9 +73,9 @@ class DiagnosticMessage(DoIPMessage):
                             hex(self.target_address)
                         )
 
-        if self.payload:
+        if self.pdu:
             s = """{}\r{}""".format  (
                                 s,
-                                self.payload
+                                self.pdu
                             )
         return s

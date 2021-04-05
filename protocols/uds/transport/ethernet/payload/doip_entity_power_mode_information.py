@@ -1,5 +1,6 @@
 from ctypes import c_uint8
 
+from uds.transport.ethernet.enum.diagnostic_power_mode import DiagnosticPowerMode
 from uds.transport.ethernet.message import DoIPMessage
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
 
@@ -23,3 +24,13 @@ class DoIPEntityPowerModeResponse(DoIPMessage):
 
     def __init__(self):
         super(DoIPEntityPowerModeResponse, self).__init__(payload_type = DoIPPayloadType.DIAGNOSTIC_POWER_MODE_INFORMATION_RESPONSE)
+
+    def __repr__(self):
+        s = """{}\rPayload:
+                    \r\tDiagnostic power mode: {}
+            """.format  (
+                            super(DoIPEntityPowerModeResponse, self).__repr__(),
+                            DiagnosticPowerMode(self.diagnostic_power_mode).name,
+                        )
+
+        return s

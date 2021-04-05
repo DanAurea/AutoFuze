@@ -1,6 +1,6 @@
 from enum import IntEnum
 
-class GenericNACK(IntEnum):
+class GenericNACKEnum(IntEnum):
     """
     This class enumerates all generic doip NACK.
     """

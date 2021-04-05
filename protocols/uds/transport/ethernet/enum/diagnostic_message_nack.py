@@ -1,6 +1,6 @@
 from enum import IntEnum
 
-class DiagnosticMessageNACK(IntEnum):
+class DiagnosticMessageNACKEnum(IntEnum):
     """
     This class enumerates all diagnostic message NACK in DoIP.
     """
