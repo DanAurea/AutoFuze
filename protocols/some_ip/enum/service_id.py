@@ -1,0 +1,12 @@
+from enum import IntEnum
+
+class ServiceID(IntEnum):
+    RESERVED = 0x0000
+    # OEM_RESERVED = 0xFF00
+    # OEM_RESERVED = 0xFF1F
+    # TIER_1_RESERVED = 0xFF20
+    # TIER_1_RESERVED = 0xFF3F
+    # ECU_RESERVED = 0xFF40
+    # ECU_RESERVED = 0xFF5F
+    NON_SOME_IP_SERVICE = 0xFFFE
+    SOME_IP_SPECIAL_SERVICE = 0xFFFF
