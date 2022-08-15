@@ -1,8 +1,9 @@
 from ctypes import c_uint8, c_uint16
 
+from uds.transport.ethernet.enum.connection_kind import ConnectionKind
 from uds.transport.ethernet.enum.diagnostic_message_nack import DiagnosticMessageNACKEnum
-from uds.transport.ethernet.message import DoIPMessage
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
+from uds.transport.ethernet.message import DoIPMessage
 
 class DiagnosticMessageNACK(DoIPMessage):
     """
@@ -19,8 +20,11 @@ class DiagnosticMessageNACK(DoIPMessage):
                     #("previous_message", c_byte * _payload_length)
                 ]
     
+    CONNECTION_KIND = ConnectionKind.TCP
+    PAYLOAD_TYPE    = DoIPPayloadType.DIAGNOSTIC_MESSAGE_NEGATIVE_ACK
+
     def __init__(self):
-        super(DiagnosticMessageNACK, self).__init__(payload_type = DoIPPayloadType.DIAGNOSTIC_MESSAGE_NEGATIVE_ACK)
+        super(DiagnosticMessageNACK, self).__init__()
 
     def __repr__(self):
         s = """{}\rPayload:

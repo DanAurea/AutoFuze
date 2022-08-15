@@ -114,16 +114,16 @@ class CommandCode(object):
         """
         if self._code in range(StandardCommandCode.USER_CMD, StandardCommandCode.CONNECT + 1):
             return StandardCommandCode(self._code)
-        elif self._code in range(CalibrationCommand.MODIFY_BITS, CalibrationCommand.DOWNLOAD + 1):
-            return CalibrationCommand(self._code)
-        elif self._code in range(PageSwitchingCommand.COPY_CAL_PAGE, PageSwitchingCommand.SET_CAL_PAGE + 1):
-            return PageSwitchingCommand(self._code)
-        elif self._code in range(DataAcquisitionCommand.ALLOC_ODT_ENTRY, DataAcquisitionCommand.CLEAR_DAQ_LIST + 1):
-            return DataAcquisitionCommand(self._code)
-        elif self._code in range(NvmProgrammingCommand.PROGRAM_VERIFY, NvmProgrammingCommand.PROGRAM_START + 1):
-            return NvmProgrammingCommand(self._code)
-        elif self._code in range(ReservedCommand.RESERVED_1, ReservedCommand.RESERVED_8 + 1):
-            return ReservedCommand(self._code)
+        elif self._code in range(CalibrationCommandCode.MODIFY_BITS, CalibrationCommandCode.DOWNLOAD + 1):
+            return CalibrationCommandCode(self._code)
+        elif self._code in range(PageSwitchingCommandCode.COPY_CAL_PAGE, PageSwitchingCommandCode.SET_CAL_PAGE + 1):
+            return PageSwitchingCommandCode(self._code)
+        elif self._code in range(DataAcquisitionCommandCode.ALLOC_ODT_ENTRY, DataAcquisitionCommandCode.CLEAR_DAQ_LIST + 1):
+            return DataAcquisitionCommandCode(self._code)
+        elif self._code in range(NvmProgrammingCommandCode.PROGRAM_VERIFY, NvmProgrammingCommandCode.PROGRAM_START + 1):
+            return NvmProgrammingCommandCode(self._code)
+        elif self._code in range(ReservedCommandCode.RESERVED_1, ReservedCommandCode.RESERVED_8 + 1):
+            return ReservedCommandCode(self._code)
         else:
             return None
 

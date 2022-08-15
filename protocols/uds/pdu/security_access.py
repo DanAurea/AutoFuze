@@ -22,8 +22,8 @@ class SecurityAccess(ServiceBase):
     SERVICE_ID = ServiceID.SECURITY_ACCESS
     
     class SubFunction(enum.IntEnum):
-        REQUEST_SEED = 0x01
-        SEND_KEY     = 0x02
+        REQUEST_SEED = 0x01 # Odd numbers
+        SEND_KEY     = 0x02 # Even numbers
 
     def __init__(self, sub_function = SubFunction.REQUEST_SEED, level = 0, key = None):
         self.sub_function = sub_function # TODO: Define sub_function calculation based on level (@property ?)

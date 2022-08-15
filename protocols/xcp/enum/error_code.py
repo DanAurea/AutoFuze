@@ -1,5 +1,7 @@
 from enum import IntEnum
 
+# TODO: Maybe create a superclass that allow description + error code for other protocols (it would be cleaner I think)
+
 class ErrorCode(IntEnum):
     """
     This class describes an error code.
@@ -35,4 +37,4 @@ class ErrorCode(IntEnum):
         self.description = description
 
     def __str__(self):
-        return f'{hex(self._value_)} : {self.description}'
+        return f'{{{self._name_}, {hex(self._value_)}}} : {self.description}'

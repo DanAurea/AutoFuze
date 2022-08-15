@@ -1,7 +1,8 @@
 from ctypes import c_uint16, sizeof
 
-from uds.transport.ethernet.message import DoIPMessage
+from uds.transport.ethernet.enum.connection_kind import ConnectionKind
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
+from uds.transport.ethernet.message import DoIPMessage
 
 class DiagnosticMessage(DoIPMessage):
     """
@@ -20,8 +21,11 @@ class DiagnosticMessage(DoIPMessage):
                     #(data  * c_byte) Variable data length
                 ]
 
+    CONNECTION_KIND = ConnectionKind.TCP
+    PAYLOAD_TYPE    = DoIPPayloadType.DIAGNOSTIC_MESSAGE
+    
     def __init__(self, source_address = 0x0000, target_address = 0x0000):
-        super(DiagnosticMessage, self).__init__(payload_type = DoIPPayloadType.DIAGNOSTIC_MESSAGE)
+        super(DiagnosticMessage, self).__init__()
         self.source_address = source_address
         self.target_address = target_address
         self.pdu            = None

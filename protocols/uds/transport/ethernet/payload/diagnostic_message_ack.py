@@ -1,8 +1,9 @@
 from ctypes import c_uint8, c_uint16
 
+from uds.transport.ethernet.enum.connection_kind import ConnectionKind
 from uds.transport.ethernet.enum.diagnostic_message_ack import DiagnosticMessageACKEnum
-from uds.transport.ethernet.message import DoIPMessage
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
+from uds.transport.ethernet.message import DoIPMessage
 
 class DiagnosticMessageACK(DoIPMessage):
     """
@@ -17,8 +18,11 @@ class DiagnosticMessageACK(DoIPMessage):
                     #("previous_message", c_byte * _payload_length)
                 ]
     
+    CONNECTION_KIND = ConnectionKind.TCP
+    PAYLOAD_TYPE    = DoIPPayloadType.DIAGNOSTIC_MESSAGE_POSITIVE_ACK
+    
     def __init__(self):
-        super(DiagnosticMessageACK, self).__init__(payload_type = DoIPPayloadType.DIAGNOSTIC_MESSAGE_POSITIVE_ACK)
+        super(DiagnosticMessageACK, self).__init__()
 
     def __repr__(self):
         s = """{}\rPayload:

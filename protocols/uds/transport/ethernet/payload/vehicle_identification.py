@@ -1,15 +1,19 @@
 from ctypes import c_char, c_uint8
 
-from uds.transport.ethernet.message import DoIPMessage
+from uds.transport.ethernet.enum.connection_kind import ConnectionKind
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
+from uds.transport.ethernet.message import DoIPMessage
 
 class VehicleIdentification(DoIPMessage):
     _pack_   = 1
     _fields_ =  [
                 ]
 
+    CONNECTION_KIND = ConnectionKind.UDP
+    PAYLOAD_TYPE    = DoIPPayloadType.VEHICLE_IDENTIFICATION_REQUEST
+
     def __init__(self):
-        super(VehicleIdentification, self).__init__(payload_type = DoIPPayloadType.VEHICLE_IDENTIFICATION_REQUEST)
+        super(VehicleIdentification, self).__init__()
 
 class VehicleIdentificationEID(DoIPMessage):
     _pack_   = 1
@@ -17,8 +21,11 @@ class VehicleIdentificationEID(DoIPMessage):
                     ("eid", 6 * c_uint8)
                 ]
 
+    CONNECTION_KIND = ConnectionKind.UDP
+    PAYLOAD_TYPE    = DoIPPayloadType.VEHICLE_IDENTIFICATION_REQUEST_EID
+
     def __init__(self, eid):
-        super(VehicleIdentificationEID, self).__init__(payload_type = DoIPPayloadType.VEHICLE_IDENTIFICATION_REQUEST_EID)
+        super(VehicleIdentificationEID, self).__init__()
         self.eid = eid
     
     def __repr__(self):
@@ -37,8 +44,11 @@ class VehicleIdentificationVIN(DoIPMessage):
                     ("vin", 17 * c_char)
                 ]
 
+    CONNECTION_KIND = ConnectionKind.UDP
+    PAYLOAD_TYPE    = DoIPPayloadType.VEHICLE_IDENTIFICATION_REQUEST_VIN
+    
     def __init__(self, vin):
-        super(VehicleIdentificationVIN, self).__init__(payload_type = DoIPPayloadType.VEHICLE_IDENTIFICATION_REQUEST_VIN)
+        super(VehicleIdentificationVIN, self).__init__()
         self.vin = bytes(vin.encode('ascii')) # TODO: Handle this with EBCDIC instead of ascii
 
     def __repr__(self):

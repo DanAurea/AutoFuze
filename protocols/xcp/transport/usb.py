@@ -1,34 +1,36 @@
+from ctypes import BigEndianStructure, c_uint8
+
 from xcp.transport.base import TransportBase
 from struct import pack
 
-class UsbHeader(object):
+class UsbHeader(BigEndianStructure):
     """
     This class describes a USB header.
-    USB composition vary regarding XCP packet
+    USB composition vary regarding XCP packet:
     
+        Packet length can be either a byte or a word.
+        Control CTR is always the same size as packet length.
     """
-    def __init__(self):
-        self._packet_len  = 0x00
-        self._control_ctr = 0x00
+
+    _pack_   = 1
+    _fields_ =  [
+                    ("_packet_len", c_uint8),
+                    ("_control_ctr", c_uint8),
+                ]
+
+    def __init__(self, packet_len = 0x00, control_ctr = 0x00):
+        self._packet_len  = packet_len
+        self._control_ctr = control_ctr
 
     def update_control(self):
         """
         Increment control counter for flow control of Ethernet traffic.
         """
+
+        # TODO: Handle overflow if control ctr goes over 0xFF
         self._control_ctr += 0x01
 
-    def __bytes__(self):
-        """
-        Return bytes representation of USB header.
-        """
-        header_bytes = bytearray()
-
-        header_bytes.extend(pack("<B", self._packet_len))
-        header_bytes.extend(pack("<B", self._control_ctr))
-
-        return b''
-
-class UsbTail(object):
+class UsbTail(BigEndianStructure):
 
     def __init__(self):
         self._fill = 0x00

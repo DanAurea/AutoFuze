@@ -1,9 +1,10 @@
 from ctypes import c_char, c_uint8, c_uint16
 
-from uds.transport.ethernet.message import DoIPMessage
+from uds.transport.ethernet.enum.connection_kind import ConnectionKind
 from uds.transport.ethernet.enum.further_action_required import FurtherActionRequired
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
 from uds.transport.ethernet.enum.vin_gid_sync_status import VINGIDSyncStatus
+from uds.transport.ethernet.message import DoIPMessage
 
 class VehicleAnnouncement(DoIPMessage):
     """
@@ -23,8 +24,11 @@ class VehicleAnnouncement(DoIPMessage):
                     ("VIN_GID_sync_status", c_uint8), # Status of synchronization between VIN and GID (Optional)
                 ]
 
+    CONNECTION_KIND = ConnectionKind.UDP
+    PAYLOAD_TYPE    = DoIPPayloadType.VEHICLE_ANNOUNCEMENT_MESSAGE
+    
     def __init__(self, vin = "0123456789ABCDEFG", logical_address = 0x00, eid = 0x001122334455, gid = 0x01122334455, further_action_required = FurtherActionRequired.ROUTING_ACTIVATION_REQUIRED, vin_gid_sync_status = VINGIDSyncStatus.VIN_GID_NOT_SYNCHRONIZED):
-        super(VehicleAnnouncement, self).__init__(payload_type = DoIPPayloadType.VEHICLE_ANNOUNCEMENT_MESSAGE)
+        super(VehicleAnnouncement, self).__init__()
         self.vin                     = bytes(vin.encode("ascii")) # TODO: Handle this as EBCDIC instead of ASCII
         self.logical_address         = logical_address
         self.eid                     = eid

@@ -11,13 +11,12 @@ class IOControlByID(ServiceBase):
     SERVICE_ID = ServiceID.INPUT_OUTPUT_CONTROL_BY_IDENTIFIER
     
     class Parameter(enum.IntEnum):
-        NONE                   = 0x00
-        RETURN_CONTROL_TO_ECU  = 0x01
-        RESET_TO_DEFAULT       = 0x02
-        FREEZE_CURRENT_STATE   = 0x03
-        SHORT_TERM_ADJUSTEMENT = 0x04
+        RETURN_CONTROL_TO_ECU  = 0x00
+        RESET_TO_DEFAULT       = 0x01
+        FREEZE_CURRENT_STATE   = 0x02
+        SHORT_TERM_ADJUSTEMENT = 0x03
 
-    def __init__(self, ecu_id = 0x00, parameter = Parameter.NONE): 
+    def __init__(self, ecu_id = 0x00, parameter = Parameter.RETURN_CONTROL_TO_ECU): 
         self.ecu_id      = ecu_id
         self.parameter   = parameter
 
@@ -37,8 +36,6 @@ class IOControlByID(ServiceBase):
 
         # TODO: Compute number of bytes used by ECU ID
         b.extend(struct.pack("!" + "B", self.ecu_id))
-        
-        if self.parameter != self.Parameter.NONE:
-            b.extend(struct.pack("!B", self.parameter))
+        b.extend(struct.pack("!B", self.parameter))
 
         return bytes(b)

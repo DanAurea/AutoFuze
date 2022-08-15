@@ -12,4 +12,4 @@ class SOMEIPHeader(BigEndianStructure):
                         ("message_type", c_uint8),
                         ("return_code", c_uint8),
                         #("payload", x * c_ubyte) # Payload of variable size
-                    ] 
+                    ]

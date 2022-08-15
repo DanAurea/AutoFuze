@@ -10,7 +10,7 @@ class ClearDiagnosticInformation(ServiceBase):
 
     SERVICE_ID = ServiceID.CLEAR_DIAGNOSTIC_INFORMATION
     
-    def __init__(self, dtc = 0x000000): 
+    def __init__(self, dtc = 0x000000):
         self.dtc         = dtc
 
     def __bytes__(self):

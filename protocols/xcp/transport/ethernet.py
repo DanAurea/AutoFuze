@@ -1,7 +1,9 @@
+from ctypes import BigEndianStructure, c_uint16
+
 from xcp.transport.base import TransportBase
 from struct import pack
 
-class XcpEthernetHeader(object):
+class XcpEthernetHeader(BigEndianStructure):
     """
     This class describes a XCP ethernet header.
     XCP Ethernet header is composed as:
@@ -9,33 +11,21 @@ class XcpEthernetHeader(object):
         - 2 bytes describing a control ctr (used to detect missing packets in flow control)
     """
 
+    _pack_   =  1
+    _fields_ =  [
+                    ("_packet_len", c_uint16),
+                    ("_control_ctr", c_uint16),
+                ]
+
     def __init__(self, packet_len = 0x0000, control_ctr = 0x0000):
         self._packet_len  = packet_len
-        self._control_ctr = control_ctr
-
-    def _set_packet_len(self, packet_len):
-        """
-        Set the packet length.
-        
-        :param      packet_len:  The packet length
-        :type       packet_len:  unsigned int
-        """
-        self._packet_len = packet_len
+        selcf._control_ctr = control_ctr
 
     def update_control(self):
         """
         Increment control counter for flow control of Ethernet traffic.
         """
         self._control_ctr += 0x01
-
-    def __bytes__(self):
-        """
-        Return bytes representation of Ethernet header.
-        """
-        return pack("<HH", self._packet_len, self._control_ctr)
-
-    packet_len = property(fset = _set_packet_len)
-    del _set_packet_len
 
 class EthernetTransport(TransportBase):
     """

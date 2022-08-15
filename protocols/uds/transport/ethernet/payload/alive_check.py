@@ -1,7 +1,8 @@
 from ctypes import c_uint16, sizeof
 
-from uds.transport.ethernet.message import DoIPMessage
+from uds.transport.ethernet.enum.connection_kind import ConnectionKind
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
+from uds.transport.ethernet.message import DoIPMessage
 
 class AliveCheckRequest(DoIPMessage):
     """
@@ -11,8 +12,11 @@ class AliveCheckRequest(DoIPMessage):
     _fields_ =  [
                 ]
     
+    CONNECTION_KIND = ConnectionKind.TCP
+    PAYLOAD_TYPE    = DoIPPayloadType.ALIVE_CHECK_REQUEST
+
     def __init__(self):
-        super(AliveCheckRequest, self).__init__(payload_type = DoIPPayloadType.ALIVE_CHECK_REQUEST)
+        super(AliveCheckRequest, self).__init__()
 
 class AliveCheckResponse(DoIPMessage):
     """
@@ -26,8 +30,11 @@ class AliveCheckResponse(DoIPMessage):
                     ("source_address", c_uint16)
                 ]
 
+    CONNECTION_KIND = ConnectionKind.TCP
+    PAYLOAD_TYPE    = DoIPPayloadType.ALIVE_CHECK_RESPONSE
+
     def __init__(self):
-        super(AliveCheckResponse, self).__init__(payload_type = DoIPPayloadType.ALIVE_CHECK_RESPONSE)
+        super(AliveCheckResponse, self).__init__()
 
     def __repr__(self):
         s = """{}\rPayload:

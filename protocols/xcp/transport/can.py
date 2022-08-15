@@ -1,7 +1,7 @@
 from xcp.transport.base import TransportBase
 from struct import pack
 
-class CanTail(object):
+class CanTail(BigEndianStructure):
     """
     This class describes a Controller Area Network (CAN) tail.
     Tail composition vary regarding XCP packet length and 
