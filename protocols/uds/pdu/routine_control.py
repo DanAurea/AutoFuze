@@ -1,6 +1,8 @@
 import enum
 import struct
 
+from ctypes import c_uint8, c_uint16
+
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
@@ -18,32 +20,20 @@ class RoutineControl(ServiceBase):
         STOP            = 0x02
         REQUEST_RESULTS = 0x03
 
+    _pack_   = 1
+    _fields_ =  [
+                    ('sub_function', c_uint8),
+                    ('routine_id', c_uint16),
+                ]
+
     def __init__(self, sub_function = SubFunction.START, routine_id = 0x0000):
         self.sub_function = self.SubFunction.START
         self.routine_id   = routine_id
 
-    def __bytes__(self):
-        """
-        Return bytes representation.
-
-        Payload:
-        [0:1] : Service ID (0x31)
-        [1:2] : Sub function
-        [2:4] : Routine ID
-        """
-        b = bytearray()
-
-        # Convert to big endian (network endianness)
-        b.extend(super(RoutineControl, self).__bytes__())
-        b.extend(struct.pack('!B', self.sub_function))
-        b.extend(struct.pack('!H', self.routine_id))
-
-        return bytes(b)
-
     def __repr__(self):
         s = """{}
                 Sub function: {}
-                Routine ID: {}
+                Routine ID: 0x{:04X}
             """.format  (
                             super(RoutineControl, self).__repr__(),
                             self.SubFunction(self.sub_function).name,

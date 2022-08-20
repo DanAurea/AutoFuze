@@ -103,6 +103,7 @@ class EthernetClient(object):
         :param      message:  The message
         :type       message:  { type_description }
         """
+        pass
 
     def receive(self):
         pass

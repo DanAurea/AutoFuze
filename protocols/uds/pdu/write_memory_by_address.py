@@ -1,6 +1,8 @@
 import enum
 import struct
 
+from ctypes import c_uint8, c_uint16
+
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
@@ -32,11 +34,21 @@ class WriteMemoryByAddress(ServiceBase):
         [5:N] : Data
         """
 
-        b = bytearray()
+        # TODO: Update logic with length/format behaviour.
+        class Payload(ServiceBase):
+            SERVICE_ID = WriteMemoryByAddress.SERVICE_ID
+            _pack_   = 1
+            _fields_ =  [
+                            ('length_format', c_uint8),
+                            ('memory_address', c_uint16),
+                            ('memory_size', c_uint8),
+                            ('data', len(self.data) * c_uint8),
+                        ]
 
-        b.extend(super(WriteMemoryByAddress, self).__bytes__())
-        b.extend(struct.pack("!B", self.length_format))
+        payload = Payload()
+        payload.length_format  = self.length_format
+        payload.memory_address = self.memory_address
+        payload.memory_size    = self.memory_size
+        payload.data           = (c_uint8 * len(self.data))(*self.data)
 
-        # TODO: Implement write by memory logic
-
-        return bytes(b)
+        return bytes(payload)

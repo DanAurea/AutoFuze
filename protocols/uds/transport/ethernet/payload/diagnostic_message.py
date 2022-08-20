@@ -69,12 +69,12 @@ class DiagnosticMessage(DoIPMessage):
 
     def __repr__(self):
         s = """{}\rPayload:
-                    \r\tSource address : {}
-                    \r\tTarget address : {}
+                    \r\tSource address : 0x{:04X}
+                    \r\tTarget address : 0x{:04X}
             """.format  (
                             super().__repr__(),
-                            hex(self.source_address),
-                            hex(self.target_address)
+                            self.source_address,
+                            self.target_address
                         )
 
         if self.pdu:

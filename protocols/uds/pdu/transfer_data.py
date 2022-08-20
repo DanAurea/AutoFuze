@@ -1,6 +1,8 @@
 import enum
 import struct
 
+from ctypes import c_uint8, c_uint16
+
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
@@ -30,11 +32,16 @@ class TransferData(ServiceBase):
         [1:2]: Block sequence counter
         [2:N]: Data (bytes)
         """
+        class Payload(ServiceBase):
+            SERVICE_ID = TransferData.SERVICE_ID
+            _pack_   = 1
+            _fields_ =  [
+                            ('block_sequence_counter', c_uint16),
+                            ('data', len(self.data) * c_uint8),
+                        ]
 
-        b = bytearray()
+        payload = Payload()
+        payload.block_sequence_counter = self.block_sequence_counter
+        payload.data = (c_uint8 * len(self.data))(*self.data)
 
-        b.extend(super(TransferData, self).__bytes__())
-        b.extend(struct.pack("!B", self.block_sequence_counter))
-        b.extend(self.data)
-
-        return bytes(b)
+        return bytes(payload)

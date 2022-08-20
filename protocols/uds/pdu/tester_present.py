@@ -1,5 +1,7 @@
 import enum
 
+from ctypes import c_uint8
+
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
@@ -18,23 +20,13 @@ class TesterPresent(ServiceBase):
         NONE          = 0x00
         SUPRESS_REPLY = 0x80
 
+    _pack_   = 1
+    _fields_ =  [
+                    ('_sub_function', c_uint8)
+                ]
+
     def __init__(self, sub_function = SubFunction.SUPRESS_REPLY):
-        self.sub_function = sub_function
-        
-    def __bytes__(self):
-        """
-        Return bytes representation.
-
-        Payload:
-        [0:1]: Service ID (0X3E)
-        [1:2]: Sub function
-        """
-        b = bytearray()
-
-        b.extend(super(TesterPresent, self).__bytes__())
-        b.extend(self.sub_function)
-
-        return bytes(b)
+        self.sub_function = self._sub_function = sub_function
 
     def __repr__(self):
         s = """{}

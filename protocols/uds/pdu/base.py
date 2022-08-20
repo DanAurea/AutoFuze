@@ -1,28 +1,24 @@
 import struct
 
+from ctypes import BigEndianStructure, c_uint8
+
 from uds.enum.service_id import ServiceID
 
-class ServiceBase(object):
+class ServiceBase(BigEndianStructure):
     """
     This class describes a unified diagnostic service (UDS) base.
     """
     SERVICE_ID = ServiceID.NEGATIVE_RESPONSE
 
+    _pack_   = 1
+    _fields_ =  [
+                    ('service_id', c_uint8),
+                ]
+
     def __new__(cls, *args, **kwargs):
-        instance             = super(ServiceBase, cls).__new__(cls)
+        instance             = super(ServiceBase, cls).__new__(cls, *args, **kwargs)
+        instance.service_id = cls.SERVICE_ID
         return instance
-
-    def __init__(self):
-        pass
-
-    def __bytes__(self):
-        """
-        Return service id as a byte (common for all services)
-        
-        :returns:   service_id
-        :rtype:     byte
-        """
-        return struct.pack("!B", self.SERVICE_ID)
 
     def __repr__(self):
         """
@@ -32,7 +28,7 @@ class ServiceBase(object):
 
         s = """PDU: {}
                 Service ID: {}""".format(
-                                            [hex(b) for b in self.__bytes__()],
+                                            [hex(b) for b in bytes(self)],
                                             self.SERVICE_ID.name
                                         )
 

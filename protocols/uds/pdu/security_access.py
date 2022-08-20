@@ -1,6 +1,8 @@
 import enum
 import struct
 
+from ctypes import c_uint8
+
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
@@ -25,7 +27,7 @@ class SecurityAccess(ServiceBase):
         REQUEST_SEED = 0x01 # Odd numbers
         SEND_KEY     = 0x02 # Even numbers
 
-    def __init__(self, sub_function = SubFunction.REQUEST_SEED, level = 0, key = None):
+    def __init__(self, sub_function = SubFunction.REQUEST_SEED, level = 0, key = b''):
         self.sub_function = sub_function # TODO: Define sub_function calculation based on level (@property ?)
         self.key          = key
     
@@ -36,18 +38,32 @@ class SecurityAccess(ServiceBase):
         Payload:
         [0:1] : SERVICE_ID (0x27)
         [1:2] : Sub function
-        [2:6] : Key (Optional)
+        [2:N] : Key (Optional)
         """
+        if (self.sub_function % self.SubFunction.SEND_KEY) == 0:
+            class Payload(ServiceBase):
+                SERVICE_ID = SecurityAccess.SERVICE_ID
+                _pack_   = 1
+                _fields_ =  [
+                                ('sub_function', c_uint8),
+                                ('key', len(self.key) * c_uint8),
+                            ]
 
-        b = bytearray()
+            payload = Payload()
+            payload.sub_function = self.sub_function
+            payload.key = (len(self.key) * c_uint8)(*self.key)
+        else:
+            class Payload(ServiceBase):
+                SERVICE_ID = SecurityAccess.SERVICE_ID
+                _pack_   = 1
+                _fields_ =  [
+                                ('sub_function', c_uint8),
+                            ]
 
-        b.extend(super(SecurityAccess, self).__bytes__())
-        b.extend(struct.pack("!B", self.sub_function))
-        
-        if self.sub_function == self.SubFunction.SEND_KEY:
-            b.extend(struct.pack("!I", self.key))
+            payload = Payload()
+            payload.sub_function = self.sub_function
 
-        return bytes(b)
+        return bytes(payload)
 
     def __repr__(self):
         s = """{}
