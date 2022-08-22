@@ -17,6 +17,7 @@ from uds.pdu.ecu_reset import EcuReset
 from uds.pdu.input_output_control_by_identifier import IOControlByID
 from uds.pdu.link_control import LinkControl
 from uds.pdu.negative_response import NegativeResponse
+from uds.pdu.read_data_by_identifier import ReadDataByID
 from uds.pdu.read_data_by_identifier_periodic import ReadDataByIDPeriodic
 from uds.pdu.read_memory_by_address import ReadMemoryByAddress
 from uds.pdu.read_scaling_data_by_identifier import ReadScalingDataByID
@@ -64,6 +65,8 @@ print(ethernet_diagnostic_message)
 ethernet_diagnostic_message = DiagnosticMessage(source_address = 0x1020, target_address = 0xEE00) / LinkControl(sub_function = LinkControl.SubFunction.TRANSITION_MODE)
 print(ethernet_diagnostic_message)
 ethernet_diagnostic_message = DiagnosticMessage(source_address = 0x1020, target_address = 0xEE00) / NegativeResponse(request_service_id = ServiceID.ECU_RESET, nrc = NRC.GENERAL_REJECT)
+print(ethernet_diagnostic_message)
+ethernet_diagnostic_message = DiagnosticMessage(source_address = 0x1020, target_address = 0xEE00) / ReadDataByID(did = 0xF010)
 print(ethernet_diagnostic_message)
 ethernet_diagnostic_message = DiagnosticMessage(source_address = 0x1020, target_address = 0xEE00) / ReadDataByIDPeriodic(did_list = [0xF010, 0xF020])
 print(ethernet_diagnostic_message)
