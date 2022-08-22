@@ -18,18 +18,18 @@ class SessionControl(ServiceBase):
 
     _pack_   = 1
     _fields_ =  [
-                    ('_session', c_uint8)
+                    ('session', c_uint8)
                 ]
 
     def __init__(self, session = Session.DEFAULT_SESSION):
-        self.session  = self._session = session
+        self.session = session
 
     def __repr__(self):
         s = """{}
                 Session: {}
             """.format  (
                             super(SessionControl, self).__repr__(),
-                            self.session.name,
+                            Session(self.session).name,
                         )
 
         return s

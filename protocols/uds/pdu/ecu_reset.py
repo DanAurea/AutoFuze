@@ -1,6 +1,8 @@
 import enum
 import struct
 
+from ctypes import c_uint8
+
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
@@ -20,32 +22,20 @@ class EcuReset(ServiceBase):
         ENABLE_RAPID_POWER_SHUTDOWN  = 0x04 # Shutdown goes in "sleep mode" instead (quick power on afterwards)
         DISABLE_RAPID_POWER_SHUTDOWN = 0x05
 
+    _pack_   = 1
+    _fields_ =  [
+                    ('sub_function', c_uint8)
+                ]
+
     def __init__(self, sub_function = SubFunction.CONTROLLED): 
         self.sub_function = sub_function
-
-    def __bytes__(self):
-        """
-        Return bytes representation.
-
-        Payload:
-        [0:1] : SERVICE_ID (0x11)
-        [1:2] : Sub function
-        """
-
-        b = bytearray()
-
-        # Convert to big endian (network endianness)
-        b.extend(super(EcuReset, self).__bytes__())
-        b.extend(struct.pack('!B', self.sub_function))
-
-        return bytes(b)
 
     def __repr__(self):
         s = """{}
                 Sub function: {}
             """.format  (
                             super(EcuReset, self).__repr__(),
-                            self.sub_function.name,
+                            self.SubFunction(self.sub_function).name,
                         )
 
         return s

@@ -1,6 +1,8 @@
 import enum
 import struct
 
+from ctypes import c_uint8, c_uint16, c_uint32, c_uint64, sizeof
+
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
@@ -21,8 +23,8 @@ class RequestDownload(ServiceBase):
     def __init__(self, data_format = 0x00, parameters_length = 0x44, memory_address = 0x00, memory_size = 0x00):
         self.data_format           = data_format # [0:4] Encyrption method; [4:8] Compression method
         
-        self.length_memory_address = parameters_length & 0xFF
-        self.length_memory_size    = (parameters_length >> 4 ) & 0xFF
+        self.length_memory_address = parameters_length & 0xF
+        self.length_memory_size    = (parameters_length >> 4 ) & 0xF
         
         self.memory_address        = memory_address
         self.memory_size           = memory_size
@@ -38,53 +40,68 @@ class RequestDownload(ServiceBase):
         [3:N]: Memory address
         [N:M]: Memory size
         """
-
-        b = bytearray()
-
-        b.extend(super(RequestDownload, self).__bytes__())
-        b.extend(data_format)
-        b.extend(struct.pack("!B", self.length_memory_address | self.length_memory_size << 4))
-
-        memory_address_encoding = "B"
-
-        if length_memory_address == 2:
-            memory_address_encoding = "H"
-        elif length_memory_address == 4:
-            memory_address_encoding = "I"
-        elif length_memory_address == 8:
-            memory_address_encoding = "Q"
-
-        if memory_address_encoding == "B": # Encode byte by byte in case user would like to fuzz with odd number of bytes.
-            b.extend(struct.pack("!" + self.length_memory_address * "B", self.memory_address))
+        memory_address_format = 0 * c_uint8 # Optional by default
+        
+        if self.length_memory_address == 1:
+            memory_address_format = c_uint8
+        elif self.length_memory_address == 2:
+            memory_address_format = c_uint16
+        elif self.length_memory_address == 4:
+            memory_address_format = c_uint32
+        elif self.length_memory_address == 8:
+            memory_address_format = c_uint64
         else:
-            b.extend(struct.pack("!" + memory_address_encoding, self.memory_address))
+            pass # TODO: Handle odd numbers and invalid values
 
-        memory_size_encoding = "B"
+        memory_size_format = 0 * c_uint8 # Optional by default
 
-        if length_memory_size == 2:
-            memory_size_encoding = "H"
-        elif length_memory_size == 4:
-            memory_size_encoding = "I"
-        elif length_memory_size == 8:
-            memory_size_encoding = "Q"
-
-        if memory_size_encoding == "B":
-            b.extend(struct.pack("!" + self.length_memory_size * "B", self.memory_size))
+        if self.length_memory_size == 1:
+            memory_size_format = c_uint8
+        elif self.length_memory_size == 2:
+            memory_size_format = c_uint16
+        elif self.length_memory_size == 4:
+            memory_size_format = c_uint32
+        elif self.length_memory_size == 8:
+            memory_size_format = c_uint64
         else:
-            b.extend(struct.pack("!" + memory_size_encoding, self.memory_size))
+            pass # TODO: Handle odd numbers and invalid values
 
-        return bytes(b)
+        class Payload(ServiceBase):
+            SERVICE_ID = RequestDownload.SERVICE_ID
+            _pack_   = 1
+            _fields_ =  [
+                            ('data_format', c_uint8),
+                            ('length_format', c_uint8),
+                            ('memory_address', memory_address_format),
+                            ('memory_size', memory_size_format),
+                        ]
+        
+        payload = Payload()
+        payload.data_format   = self.data_format
+        payload.length_format = (self.length_memory_size << 4) | self.length_memory_address
+        
+        if sizeof(memory_address_format):
+            payload.memory_address = self.memory_address
 
-        def __repr__(self):
-            s = """{}
-                Data format: {}
-                Length memory address: {}
-                Length memory size: {}
-                Memory address: {}
-                Memory size: {}
-                """.format  (
-                            super(RequestDownload, self).__repr__(),
-                            self.data_format,
-                        )
+        if sizeof(memory_address_format):
+            payload.memory_size = self.memory_size
+
+        return bytes(payload)
+
+    def __repr__(self):
+        s = """{}
+            Data format: 0x{:04X}
+            Length memory address: {}
+            Length memory size: {}
+            Memory address: 0x{:04X}
+            Memory size: 0x{:04X}
+            """.format  (
+                        super(RequestDownload, self).__repr__(),
+                        self.data_format,
+                        self.length_memory_address,
+                        self.length_memory_size,
+                        self.memory_address,
+                        self.memory_size,
+                    )
 
         return s

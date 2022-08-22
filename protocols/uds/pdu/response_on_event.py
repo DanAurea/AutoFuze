@@ -1,6 +1,8 @@
 import enum
 import struct
 
+from ctypes import c_uint8
+
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
@@ -23,24 +25,22 @@ class ResponseOnEvent(ServiceBase):
         START_RESPONSE_EVENTS        = 0X05
         CLEAR_RESPONSE_EVENTS        = 0X06
         ON_COMPARISON_OF_VALUES      = 0X07
+        STORE_EVENT                  = 0X40
+
+    _pack_   = 1
+    _fields_ =  [
+                    ('sub_function', c_uint8),
+                ]
 
     def __init__(self, sub_function = SubFunction.ON_DTC_STATUS_CHANGE):
         self.sub_function = sub_function
-        
-    def __bytes__(self):
-        """
-        Return bytes representation.
 
-        Payload:
-        [0:1]: Service ID (0X86)
-        [1:2]: Sub function
-        """
+    def __repr__(self):
+        s = """{}
+                Sub function: {}
+            """.format  (
+                            super(ResponseOnEvent, self).__repr__(),
+                            self.SubFunction(self.sub_function).name,
+                        )
 
-        b = bytearray()
-
-        b.extend(super(ResponseOnEvent, self).__bytes__())
-        b.extend(struct.pack("!B", self.sub_function))
-
-        # TODO: Check whether logic is fully implemented or not.
-
-        return bytes(b)
+        return s
