@@ -1,15 +1,17 @@
 from xcp.enum.command_code import DataAcquisitionCommand
 from xcp.enum.command_code import StandardCommandCode
+from xcp.pdu.cto.cmd import Cmd
+from xcp.pdu.cto.res import Res
 
-class StartStopDaqListRequest(object):
+class StartStopDaqListRequest(Cmd):
+    PID = DataAcquisitionCommand.START_STOP_DAQ_LIST
     
     def __init__(self):
-        self._code            = DataAcquisitionCommand.START_STOP_DAQ_LIST
         self._mode            = 0xFF
         self._daq_list_number = 0xFF
 
-class StartStopDaqListResponse(object):
+class StartStopDaqListResponse(Res):
+    PID = StandardCommandCode.CONNECT
     
     def __init__(self):
-        self._code      = StandardCommandCode.CONNECT
         self._first_pid = 0xFF

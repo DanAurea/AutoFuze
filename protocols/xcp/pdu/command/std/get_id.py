@@ -1,15 +1,17 @@
 from xcp.enum.command_code import StandardCommandCode
+from xcp.pdu.cto.cmd import Cmd
+from xcp.pdu.cto.res import Res
 
-class GetIdRequest(object):
+class GetIdRequest(Cmd):
+    PID = StandardCommandCode.GET_ID
     
     def __init__(self):
-        self._code                          = StandardCommandCode.GET_ID
         self._requested_identification_type = 0xFF
 
-class GetIdResponse(object):
+class GetIdResponse(Res):
+    PID = StandardCommandCode.CONNECT
     
     def __init__(self):
-        self._code           = StandardCommandCode.CONNECT
         self._mode           = 0xFF
         self._length         = 0xFF
         self._identification = 0xFF

@@ -3,7 +3,6 @@ sys.path.append("../../")
 sys.path.append("../../protocols")
 
 from protocols.xcp.enum.command_code import CalibrationCommandCode
-from protocols.xcp.frame import XcpFrame
 from protocols.xcp.pdu.command.cal.download import DownloadRequest
 from protocols.xcp.transport.can import CanTransport
 from protocols.xcp.transport.ethernet import EthernetTransport

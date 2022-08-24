@@ -1,9 +1,10 @@
 from xcp.enum.command_code import DataAcquisitionCommand
+from xcp.pdu.cto.cmd import Cmd
 
-class AllocOdtEntryRequest(object):
+class AllocOdtEntryRequest(Cmd):
+    PID = DataAcquisitionCommand.ALLOC_ODT_ENTRY
     
     def __init__(self):
-        self._code              = DataAcquisitionCommand.ALLOC_ODT_ENTRY
         self._daq_list_number   = 0xFF
         self._odt_number        = 0xFF
         self._odt_entries_count = 0xFF

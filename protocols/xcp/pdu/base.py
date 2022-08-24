@@ -1,10 +1,17 @@
-class XCPPacketBase(object):
+from ctypes import LittleEndianStructure, c_uint8
 
-    def __init__(self, pid = 0x00):
-        self._pid = pid
+class XCPPacketBase(LittleEndianStructure):
+    PID = 0x00
     
-    def __bytes__(self):
-        raise NotImplementedError()
+    _pack_   = 1
+    _fields_ =  [
+                    ('pid', c_uint8),
+                ]
+
+    def __new__(cls, *args, **kwargs):
+        instance             = super(XCPPacketBase, cls).__new__(cls, *args, **kwargs)
+        instance.pid = cls.PID
+        return instance
 
     def is_correct_pid(self):
         return True

@@ -1,17 +1,19 @@
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.error_code import ErrorCode
+from xcp.pdu.cto.cmd import Cmd
+from xcp.pdu.cto.res import Res
 
-class SynchRequest(object):
+class SynchRequest(Cmd):
     """
     This class describes a connect request.
     """
-    def __init__(self):
-        self._code = StandardCommandCode.SYNCH
+    PID = StandardCommandCode.SYNCH
 
-class SynchResponse(object):
+class SynchResponse(Res):
     """
     This class describes a connect request.
     """
+    PID = StandardCommandCode.DISCONNECT
+    
     def __init__(self):
-        self._code = StandardCommandCode.DISCONNECT
         self._err  = ErrorCode.ERR_CMD_SYNCH

@@ -1,6 +1,5 @@
 from xcp.enum.command_code import NvmProgrammingCommand
+from xcp.pdu.cto.cmd import Cmd
 
-class ProgramResetRequest(object):
-    
-    def __init__(self):
-        self._code                = NvmProgrammingCommand.PROGRAM_RESET
+class ProgramResetRequest(Cmd):
+    PID = NvmProgrammingCommand.PROGRAM_RESET

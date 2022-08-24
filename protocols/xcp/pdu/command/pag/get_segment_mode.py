@@ -1,15 +1,17 @@
 from xcp.enum.command_code import PageSwitchingCommand
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.parameter_bit import GetSegmentModeBit
+from xcp.pdu.cto.cmd import Cmd
+from xcp.pdu.cto.res import Res
 
-class GetSegmentModeRequest(object):
+class GetSegmentModeRequest(Cmd):
+    PID = PageSwitchingCommand.GET_SEGMENT_MODE
 
     def __init__(self):
-        self._code           = PageSwitchingCommand.GET_SEGMENT_MODE
         self._segment_number = 0xFF
 
-class GetSegmentModeResponse(object):
+class GetSegmentModeResponse(Res):
+    PID = StandardCommandCode.CONNECT
 
     def __init__(self):
-        self._code = StandardCommandCode.CONNECT
         self._mode = GetSegmentModeBit(0xFF)  

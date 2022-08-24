@@ -19,7 +19,7 @@ class XcpEthernetHeader(BigEndianStructure):
 
     def __init__(self, packet_len = 0x0000, control_ctr = 0x0000):
         self._packet_len  = packet_len
-        selcf._control_ctr = control_ctr
+        self._control_ctr = control_ctr
 
     def update_control(self):
         """

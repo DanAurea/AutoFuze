@@ -1,9 +1,10 @@
 from xcp.enum.command_code import NvmProgrammingCommand
+from xcp.pdu.cto.cmd import Cmd
 
-class ProgramFormatRequest(object):
+class ProgramFormatRequest(Cmd):
+    PID = NvmProgrammingCommand.PROGRAM_FORMAT
 
     def __init__(self):
-        self._code               = NvmProgrammingCommand.PROGRAM_FORMAT
         self._compression_method = 0xFF
         self._encryption_method  = 0xFF
         self._programming_method = 0xFF

@@ -1,15 +1,15 @@
 from xcp.enum.command_code import DataAcquisitionCommand
 from xcp.enum.parameter_bit import DaqKeyBit, DaqPropertiesBit
+from xcp.pdu.cto.cmd import Cmd
+from xcp.pdu.cto.res import Res
 
-class GetDaqProcessorInfoRequest(object):
+class GetDaqProcessorInfoRequest(Cmd):
+    PID = DataAcquisitionCommand.GET_DAQ_PROCESSOR_INFO
+
+class GetDaqProcessorInfoResponse(Res):
+    PID = DataAcquisitionCommand.CONNECT
 
     def __init__(self):
-        self._code = DataAcquisitionCommand.GET_DAQ_PROCESSOR_INFO
-
-class GetDaqProcessorInfoResponse(object):
-
-    def __init__(self):
-        self._code              = DataAcquisitionCommand.CONNECT
         self._daq_properties    = DaqPropertiesBit(0xFF)
         self._max_daq           = 0xFF
         self._max_event_channel = 0xFF

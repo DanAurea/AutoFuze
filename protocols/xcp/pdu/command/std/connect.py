@@ -1,21 +1,25 @@
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.connect_mode import ConnectMode
 from xcp.enum.parameter_bit import RessourceBit, CommModeBasicBit
+from xcp.pdu.cto.cmd import Cmd
+from xcp.pdu.cto.res import Res
 
-class ConnectRequest(object):
+class ConnectRequest(Cmd):
     """
     This class describes a connect request.
     """
+    PID = StandardCommandCode.CONNECT
+    
     def __init__(self):
-        self._code = StandardCommandCode.CONNECT
         self._mode = ConnectMode.NORMAL_MODE
 
-class ConnectResponse(object):
+class ConnectResponse(Res):
     """
     This class describes a connect request.
     """
+    PID = StandardCommandCode.CONNECT
+    
     def __init__(self):
-        self._pid                         = StandardCommandCode.CONNECT
         self._ressource                   = RessourceBit(0xFF)
         self._comm_mode_basic             = CommModeBasicBit(0xFF)
         self._max_cto                     = 0xFF

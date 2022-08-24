@@ -1,6 +1,5 @@
 from xcp.enum.command_code import DataAcquisitionCommand
+from xcp.pdu.cto.cmd import Cmd
 
-class FreeDaqRequest(object):
-    
-    def __init__(self):
-        self._code = DataAcquisitionCommand.FREE_DAQ
+class FreeDaqRequest(Cmd):
+    PID = DataAcquisitionCommand.FREE_DAQ

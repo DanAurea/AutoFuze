@@ -1,7 +1,8 @@
 from xcp.enum.command_code import DataAcquisitionCommand
+from xcp.pdu.cto.cmd import Cmd
 
-class AllocDaqRequest(object):
+class AllocDaqRequest(Cmd):
+    PID = DataAcquisitionCommand.ALLOC_DAQ
     
     def __init__(self):
-        self._code      = DataAcquisitionCommand.ALLOC_DAQ
         self._daq_count = 0xFF

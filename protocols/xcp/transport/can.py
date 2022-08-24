@@ -1,5 +1,6 @@
-from xcp.transport.base import TransportBase
+from ctypes import BigEndianStructure
 from struct import pack
+from xcp.transport.base import TransportBase
 
 class CanTail(BigEndianStructure):
     """

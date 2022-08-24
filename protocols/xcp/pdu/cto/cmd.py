@@ -1,9 +1,8 @@
+from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.base import XCPPacketBase
 
 class Cmd(XCPPacketBase):
-    
-    def __init__(self, pid = 0xC0):
-        super(Cmd, self).__init__(pid = pid)
+    PID = StandardCommandCode.CONNECT
 
     def is_correct_pid(self):
         correct = False

@@ -1,17 +1,19 @@
 from xcp.enum.command_code import DataAcquisitionCommand
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.parameter_bit import DaqListPropertiesBit
+from xcp.pdu.cto.cmd import Cmd
+from xcp.pdu.cto.res import Res
 
-class GetDaqListInfoRequest(object):
+class GetDaqListInfoRequest(Cmd):
+    PID = DataAcquisitionCommand.GET_DAQ_LIST_INFO
     
     def __init__(self):
-        self._code            = DataAcquisitionCommand.GET_DAQ_LIST_INFO
         self._daq_list_number = 0xFF
 
-class GetDaqListInfoResponse(object):
+class GetDaqListInfoResponse(Res):
+    PID = StandardCommandCode.CONNECT
     
     def __init__(self):
-        self._code                = StandardCommandCode.CONNECT
         self._daq_list_properties = DaqListPropertiesBit(0xFF)
         self._max_odt             = 0xFF
         self._max_odt_entires     = 0xFF

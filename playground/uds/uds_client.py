@@ -2,7 +2,7 @@ import enum
 import socket
 import sys
 
-sys.path.append("../protocols")
+sys.path.append("../../protocols")
 
 # Import enum
 from uds.enum.nrc import NRC
@@ -35,8 +35,6 @@ from uds.pdu.transfer_data import TransferData
 from uds.pdu.write_data_by_identifier import WriteDataByID
 
 from uds.transport.ethernet.payload import diagnostic_message as eth
-
-# Craft a DoIP packet by getting Ethernet transport and craft final message as Scapy
 
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -84,6 +82,7 @@ try:
     # Send crafted DoIP packets
     for message in message_list:
         sock.send(bytes(message))
+    
 finally:
     print('closing socket')
     sock.close()

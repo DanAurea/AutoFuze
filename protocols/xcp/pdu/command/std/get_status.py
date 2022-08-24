@@ -1,21 +1,21 @@
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.parameter_bit import CurrentSessionStatusBit, RessourceBit
+from xcp.pdu.cto.cmd import Cmd
+from xcp.pdu.cto.res import Res
 
-class GetStatusRequest(object):
+class GetStatusRequest(Cmd):
     """
     This class describes a get current session request.
     """
+    PID = StandardCommandCode.GET_STATUS
 
-    def __init__(self):
-        self._code = StandardCommandCode.GET_STATUS
-
-class GetStatusResponse(object):
+class GetStatusResponse(Res):
     """
     This class describes a get current session request.
     """
+    PID = StandardCommandCode.CONNECT
 
     def __init__(self):
-        self._pid                        = StandardCommandCode.CONNECT
         self._session_status             = CurrentSessionStatusBit(0xFF)
         self._resource_protection_status = RessourceBit(0xFF)
         self._session_configuration_id   = 0xFF

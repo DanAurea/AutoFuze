@@ -1,6 +1,5 @@
-from xcp.pdu.base import XCPPacketBase
+from xcp.pdu.cto.base import XCPCTOCodeBase
 
-class Res(XCPPacketBase):
-    
-    def __init__(self):
-        super(Res, self).__init__(pid = 0xFF)
+class Res(XCPCTOCodeBase):
+    PID  = 0xFF
+    CODE = 0xFF

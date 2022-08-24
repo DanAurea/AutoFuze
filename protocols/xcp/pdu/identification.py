@@ -1,6 +1,8 @@
 from struct import pack
 
-class Identification(object):
+from xcp.pdu.base import XCPPacketBase
+
+class Identification(XCPPacketBase):
     """
     This class describes the identification field used in XCP frame.
     
@@ -8,20 +10,24 @@ class Identification(object):
     Master and Slave during XCP session.
 
     """
-    def __init__(self, pid = 0xFE, fill = 0x00, daq = None):
-        self._pid  = pid
-        self._fill = fill
-        self._daq  = daq
+    def __init__(self, fill = 0x00, daq = None):
+        self.fill = fill
+        self.daq  = daq
 
     def __bytes__(self):
-        identification_bytes = bytearray()
+        """
+        Return bytes representation.
 
-        identification_bytes.extend(pack("<B", self._pid))
+        Payload:
+        [0:1] : PID
+        [1:2] : Fill (Optional)
+        [2:3] : DAQ (Optional)
+        """
+        class Payload(XCPPacketBase):
+            _pack_   = 1
+            _fields_ =  [
+                        ]
 
-        if self._fill:
-            identification_bytes.extend(pack("<B", self._fill))
+        payload = Payload()
 
-        if self._daq:
-            identification_bytes.extend(pack("<B", self._daq))
-
-        return bytes(identification_bytes)
+        return bytes(payload)

@@ -1,20 +1,21 @@
 from xcp.enum.command_code import PageSwitchingCommand
 from xcp.enum.command_code import StandardCommandCode
+from xcp.pdu.cto.cmd import Cmd
+from xcp.pdu.cto.res import Res
 
-class GetSegmentInfoRequest(object):
+class GetSegmentInfoRequest(Cmd):
+    PID = PageSwitchingCommand.GET_SEGMENT_INFO
 
     def __init__(self):
-        self._code           = PageSwitchingCommand.GET_SEGMENT_INFO
         self._mode           = 0xFF
         self._segment_number = 0xFF
         self._segment_info   = 0xFF
         self._mapping_index  = 0xFF
 
-class GetSegmentInfoResponse(object):
+class GetSegmentInfoResponse(Res):
+    PID = StandardCommandCode.CONNECT
 
-    def __init__(self):
-        self._code               = StandardCommandCode.CONNECT
-        
+    def __init__(self):        
         """
         Mode = 0
         """
