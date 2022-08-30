@@ -1,3 +1,5 @@
+from ctypes import c_uint8
+
 from xcp.enum.command_code import NvmProgrammingCommand
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.parameter_bit import PgmPropertiesBit
@@ -10,6 +12,12 @@ class GetPgmProcessorInfoRequest(Cmd):
 class GetPgmProcessorInfoResponse(Res):
     PID = StandardCommandCode.CONNECT
     
-    def __init__(self):
-        self._pgm_properties = PgmPropertiesBit(0xFF)
-        self._max_sector     = 0xFF
+    _pack_   = 1
+    _fields_ =  [
+                    ('pgm_properties', c_uint8),
+                    ('max_sector', c_uint8),
+                ]
+
+    def __init__(self, pgm_properties = PgmPropertiesBit(0xFF), max_sector = 0xFF):
+        self.pgm_properties = pgm_properties
+        self.max_sector     = max_sector

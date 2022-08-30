@@ -6,16 +6,23 @@ from struct import pack
 class DownloadRequest(Cmd):
     PID = CalibrationCommandCode.DOWNLOAD
 
-    def __init__(self, number_of_data_element = 0xFF, alignment = 0xFF, data = bytearray()):
-        self._number_of_data_element = number_of_data_element
-        self._alignment              = alignment
-        self._data_element           = data
+    def __init__(self, number_of_data_element = 0xFF, alignment = b'', data = b''):
+        self.number_of_data_element = number_of_data_element
+        self.alignment              = alignment
+        self.data_element           = data
 
     def __bytes__(self):
-        cmd_bytes = bytearray()
+        class Payload(Cmd):
+            _pack_   = 1
+            _fields_ =  [
+                            ('number_of_data_element', c_uint8),
+                            ('alignment', self.number_of_data_element * c_uint8),
+                            ('data_element', len(self.data_element) * c_uint8),
+                        ]
 
-        parameters = pack("<BBB", self.pid, self._number_of_data_element, self._alignment)
-        cmd_bytes.extend(parameters)
-        cmd_bytes.extend(self._data_element)
+        payload = Payload()
+        payload.number_of_data_element = self.number_of_data_element
+        payload.alignment              = (self.number_of_data_element * c_uint8)(*self.alignment)
+        payload.data_element           = (len(self.data_element) * c_uint8)(*self.data_element)
 
-        return bytes(cmd_bytes)
+        return bytes(payload)

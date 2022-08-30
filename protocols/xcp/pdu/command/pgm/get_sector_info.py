@@ -1,3 +1,5 @@
+from ctypes import c_uint8, c_uint32
+
 from xcp.enum.command_code import NvmProgrammingCommand
 from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
@@ -6,15 +8,29 @@ from xcp.pdu.cto.res import Res
 class GetSectorInfoRequest(Cmd):
     PID = NvmProgrammingCommand.GET_SECTOR_INFO
 
-    def __init__(self):
-        self._mode          = 0xFF
-        self._sector_number = 0xFF
+    _pack_   = 1
+    _fields_ =  [
+                    ('mode', c_uint8),
+                    ('sector_number', c_uint8),
+                ]
+
+    def __init__(self, mode = 0xFF, sector_number = 0xFF):
+        self.mode          = mode
+        self.sector_number = sector_number
 
 class GetSectorInfoResponse(Res):
     PID = StandardCommandCode.CONNECT
 
-    def __init__(self):
-        self._clear_sequence_number   = 0xFF
-        self._program_sequence_number = 0xFF
-        self._programming_method      = 0xFF
-        self._sector_info             = 0xFF
+    _pack_   = 1
+    _fields_ =  [
+                    ('clear_sequence_number', c_uint8),
+                    ('program_sequence_number', c_uint8),
+                    ('programming_method', c_uint8),
+                    ('sector_info', c_uint32),
+                ]
+
+    def __init__(self, clear_sequence_number = 0xFF, program_sequence_number = 0xFF, programming_method = 0xFF, sector_info = 0xFF):
+        self.clear_sequence_number   = clear_sequence_number
+        self.program_sequence_number = program_sequence_number
+        self.programming_method      = programming_method
+        self.sector_info             = sector_info

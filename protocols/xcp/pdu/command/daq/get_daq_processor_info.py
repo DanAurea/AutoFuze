@@ -1,3 +1,5 @@
+from ctypes import c_uint8, c_uint16
+
 from xcp.enum.command_code import DataAcquisitionCommand
 from xcp.enum.parameter_bit import DaqKeyBit, DaqPropertiesBit
 from xcp.pdu.cto.cmd import Cmd
@@ -9,9 +11,18 @@ class GetDaqProcessorInfoRequest(Cmd):
 class GetDaqProcessorInfoResponse(Res):
     PID = DataAcquisitionCommand.CONNECT
 
-    def __init__(self):
-        self._daq_properties    = DaqPropertiesBit(0xFF)
-        self._max_daq           = 0xFF
-        self._max_event_channel = 0xFF
-        self._min_daq           = 0xFF
-        self._daq_key_byte      = DaqKeyBit(0xFF)
+    _pack_   = 1
+    _fields_ =  [
+                    ('daq_properties', c_uint8),
+                    ('max_daq', c_uint16),
+                    ('max_event_channel', c_uint16),
+                    ('min_daq', c_uint8),
+                    ('daq_key_byte', c_uint8),
+                ]
+
+    def __init__(self, daq_properties = DaqPropertiesBit(0xFF), max_daq = 0xFF, max_event_channel = 0xFF, min_daq = 0xFF, daq_key_byte = DaqKeyBit(0xFF)):
+        self.daq_properties    = daq_properties
+        self.max_daq           = max_daq
+        self.max_event_channel = max_event_channel
+        self.min_daq           = min_daq
+        self.daq_key_byte      = daq_key_byte

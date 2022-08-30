@@ -1,3 +1,5 @@
+from ctypes import c_uint8
+
 from xcp.enum.command_code import PageSwitchingCommand
 from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
@@ -6,14 +8,24 @@ from xcp.pdu.cto.res import Res
 class GetSegmentInfoRequest(Cmd):
     PID = PageSwitchingCommand.GET_SEGMENT_INFO
 
-    def __init__(self):
-        self._mode           = 0xFF
-        self._segment_number = 0xFF
-        self._segment_info   = 0xFF
-        self._mapping_index  = 0xFF
+    _pack_   = 1
+    _fields_ =  [
+                    ('mode', c_uint8),
+                    ('segment_number', c_uint8),
+                    ('segment_info', c_uint8),
+                    ('mapping_index', c_uint8),
+                ]
+
+    def __init__(self, mode = 0xFF, segment_number = 0xFF, segment_info = 0xFF, mapping_index = 0xFF):
+        self.mode           = mode
+        self.segment_number = segment_number
+        self.segment_info   = segment_info
+        self.mapping_index  = mapping_index
 
 class GetSegmentInfoResponse(Res):
     PID = StandardCommandCode.CONNECT
+
+    # TODO: Handle different positive responses
 
     def __init__(self):        
         """

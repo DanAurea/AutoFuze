@@ -1,3 +1,5 @@
+from ctypes import c_uint8
+
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.error_code import ErrorCode
 from xcp.pdu.cto.cmd import Cmd
@@ -15,5 +17,10 @@ class SynchResponse(Res):
     """
     PID = StandardCommandCode.DISCONNECT
     
+    _pack_   = 1
+    _fields_ =  [
+                    ('err', c_uint8),
+                ]
+
     def __init__(self):
-        self._err  = ErrorCode.ERR_CMD_SYNCH
+        self.err  = ErrorCode.ERR_CMD_SYNCH

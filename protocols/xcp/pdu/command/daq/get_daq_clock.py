@@ -1,3 +1,5 @@
+from ctypes import c_uint8, c_uint32
+
 from xcp.enum.command_code import DataAcquisitionCommand
 from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
@@ -8,6 +10,12 @@ class GetDaqClockRequest(Cmd):
 
 class GetDaqClockResponse(Res):
     PID = StandardCommandCode.CONNECT
-    
-    def __init__(self):
-        self._receive_timestamp = 0xFF
+        
+    _pack_   = 1
+    _fields_ =  [
+                    ('reserved', 3 * c_uint8),
+                    ('receive_timestamp', c_uint32),
+                ]
+
+    def __init__(self, receive_timestamp = 0xFF):
+        self.receive_timestamp = receive_timestamp

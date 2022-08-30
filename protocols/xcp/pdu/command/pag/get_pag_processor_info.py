@@ -1,4 +1,6 @@
 from xcp.enum.command_code import PageSwitchingCommand
+from ctypes import c_uint8
+
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.parameter_bit import PagPropertiesBit
 from xcp.pdu.cto.cmd import Cmd
@@ -10,6 +12,12 @@ class GetPagProcessorInfoRequest(Cmd):
 class GetPagProcessorInfoResponse(Res):
     PID = StandardCommandCode.CONNECT
     
-    def __init__(self):
-        self._max_segment    = 0xFF
-        self._pag_properties = PagPropertiesBit(0xFF)
+    _pack_ = 1
+    _fields_ =  [
+                    ('max_segment', c_uint8),
+                    ('pag_properties', c_uint8),
+                ]
+
+    def __init__(self, max_segment = 0xFF, pag_properties = PagPropertiesBit(0xFF)):
+        self.max_segment    = max_segment
+        self.pag_properties = pag_properties
