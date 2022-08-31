@@ -13,17 +13,16 @@ DISCLAIMER: This only a simple test made as a primary usage of XCP API but more 
 """
 
 data         = b"\x00\xf0\xf2\xf2"
-download_req = DownloadRequest(number_of_data_element = len(data), alignment = 0x01, data = bytearray(data))
+download_req = DownloadRequest(number_of_data_element = len(data), alignment = bytearray(1), data = bytearray(data))
 
 xcp_packet = bytes(download_req)
-
 command_code, number_of_data_element, alignment = unpack("<3B", xcp_packet[:3])
-data_unpack                                     = unpack("<4B", xcp_packet[3:])
+data_unpack                                     = unpack("<4B", xcp_packet[-len(data):])
 
 # Check that xcp packet contains correct data
 assert command_code           == CalibrationCommandCode.DOWNLOAD
 assert number_of_data_element == len(data)
-assert alignment              == 0x01
+assert alignment              == 0x00
 assert bytearray(data)        == bytearray(data_unpack)
 
 eth_transport = EthernetTransport()

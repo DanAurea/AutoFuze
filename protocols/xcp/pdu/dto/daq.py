@@ -1,12 +1,6 @@
-from xcp.pdu.base import XCPPacketBase
-from xcp.pdu.identification import Identification
+from xcp.pdu.dto.base import XCPDTOBase
 
-class Daq(XCPPacketBase):
-    
-    def __init__(self):
-        super(Daq, self).__init__(pid = 0x00)
-        self.identification = Identification()
-        self.data = b'' 
+class DAQ(XCPDTOBase):
 
     def is_correct_pid(self):
         correct = False

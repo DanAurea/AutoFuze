@@ -15,11 +15,13 @@ class TransportLayerCmdRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
-                _pack_   = 1
-                _fields_ =  [
-                                ('sub_command_code', c_uint8),
-                                ('parameters', len(self.parameters) * c_uint8),
-                            ]
+            PID = TransportLayerCmdRequest.PID
+            
+            _pack_   = 1
+            _fields_ =  [
+                            ('sub_command_code', c_uint8),
+                            ('parameters', len(self.parameters) * c_uint8),
+                        ]
 
         payload = Payload()
         payload.sub_command_code = self.sub_command_code

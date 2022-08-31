@@ -1,9 +1,9 @@
 from xcp.enum.event_code import EventCode
-from xcp.pdu.cto.base import XCPCTOCodeBase
+from xcp.pdu.cto.base import XCPCTOBase
 
-class Ev(XCPCTOCodeBase):
+class Ev(XCPCTOBase):
     PID  = 0xFD
-    CODE = EventCode.EV_RESUME_MODE
 
-    def __init__(self, data = b''):
+    def __init__(self, code = EventCode.EV_RESUME_MODE, data = b''):
+        self.code = code
         self.data = data

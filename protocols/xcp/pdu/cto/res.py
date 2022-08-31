@@ -1,5 +1,7 @@
-from xcp.pdu.cto.base import XCPCTOCodeBase
+from xcp.pdu.cto.base import XCPCTOBase
 
-class Res(XCPCTOCodeBase):
+class Res(XCPCTOBase):
     PID  = 0xFF
-    CODE = 0xFF
+
+    def __init__(self, code = 0xFF):
+        self.code = code

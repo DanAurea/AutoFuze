@@ -17,6 +17,8 @@ class DownloadNextRequest(Cmd):
     def __bytes__(self):
         # TODO: Fill payload accordingly to spec
         class Payload(Cmd):
+            PID = DownloadNextRequest.PID
+            
             _pack_   = 1
             _fields_ =  [
                             ('number_of_data_element', c_uint8),

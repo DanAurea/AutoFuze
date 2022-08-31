@@ -1,3 +1,5 @@
+from ctypes import c_uint8
+
 from xcp.enum.command_code import NvmProgrammingCommand
 from xcp.pdu.cto.cmd import Cmd
 
@@ -11,6 +13,8 @@ class ProgramRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
+            PID = ProgramRequest.PID
+
             _pack_   = 1
             _fields_ =  [
                             ('number_of_data_element', c_uint8),

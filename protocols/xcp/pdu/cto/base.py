@@ -1,14 +1,14 @@
-from ctypes import c_uint8
-
+from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.base import XCPPacketBase
+from xcp.pdu.identification import Identification
+from xcp.pdu.timestamp import Timestamp
 
-class XCPCTOCodeBase(XCPPacketBase):
-    _pack_   = 1
-    _fields_ =  [
-                    ('code', c_uint8),
-                ]
+class XCPCTOBase(XCPPacketBase):
+    PID = StandardCommandCode.CONNECT
 
     def __new__(cls, *args, **kwargs):
-        instance             = super(XCPCTOBase, cls).__new__(cls, *args, **kwargs)
-        instance.code = cls.CODE
+        instance                = super(XCPCTOBase, cls).__new__(cls, *args, **kwargs)
+        instance.identification = Identification(cls.PID)
+        instance.timestamp      = Timestamp() # Timestamp is empty in CMD
+
         return instance

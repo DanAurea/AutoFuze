@@ -16,6 +16,8 @@ class ProgramNextRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
+            PID = ProgramNextRequest.PID
+            
             _pack_   = 1
             _fields_ =  [
                             ('number_of_data_element', c_uint8),

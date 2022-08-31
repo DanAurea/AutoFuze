@@ -1,3 +1,5 @@
+from ctypes import c_uint8, c_uint16
+
 from xcp.enum.command_code import DataAcquisitionCommand
 from xcp.enum.parameter_bit import SetDaqListModeBit
 from xcp.pdu.cto.cmd import Cmd

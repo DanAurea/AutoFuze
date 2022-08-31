@@ -14,6 +14,8 @@ class UnlockRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
+            PID = UnlockRequest.PID
+            
             _pack_   = 1
             _fields_ =  [
                             ('length', c_uint8),

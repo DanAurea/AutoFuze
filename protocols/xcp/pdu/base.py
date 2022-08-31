@@ -1,17 +1,17 @@
-from ctypes import LittleEndianStructure, c_uint8
+from ctypes import LittleEndianStructure
 
 class XCPPacketBase(LittleEndianStructure):
-    PID = 0x00
     
-    _pack_   = 1
-    _fields_ =  [
-                    ('pid', c_uint8),
-                ]
-
     def __new__(cls, *args, **kwargs):
-        instance             = super(XCPPacketBase, cls).__new__(cls, *args, **kwargs)
-        instance.pid = cls.PID
+        instance                = super(XCPPacketBase, cls).__new__(cls, *args, **kwargs)
+        instance.identification = b'' # Identification is empty by default
+        instance.timestamp      = b'' # Timestamp is empty by default
+
         return instance
 
     def is_correct_pid(self):
         return True
+
+    def __bytes__(self):
+        p = bytes(self.identification) + bytes(self.timestamp) + bytearray(self)
+        return bytes(p)

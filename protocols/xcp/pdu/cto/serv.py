@@ -1,9 +1,9 @@
 from xcp.enum.service_request_code import ServiceRequestCode
-from xcp.pdu.cto.base import XCPCTOCodeBase
+from xcp.pdu.cto.base import XCPCTOBase
 
-class Serv(XCPCTOCodeBase):
+class Serv(XCPCTOBase):
     PID = 0xFC
-    CODE = ServiceRequestCode.SERV_RESET
     
-    def __init__(self, data = b''):
+    def __init__(self, code = ServiceRequestCode.SERV_RESET, data = b''):
+        self.code = code
         self.data = data

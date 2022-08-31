@@ -12,6 +12,8 @@ class ProgramMaxRequest(Cmd):
     
     def __bytes__(self):
         class Payload(Cmd):
+            PID = ProgramMaxRequest.PID
+            
             _pack_   = 1
             _fields_ =  [
                             ('alignment', len(self.alignment) * c_uint8),

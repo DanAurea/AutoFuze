@@ -26,6 +26,8 @@ class GetIdResponse(Res):
     def __bytes__(self):
 
         class Payload(Res):
+            PID = GetIdResponse.PID
+            
             _pack_   = 1
             _fields_ =  [
                             ('mode', c_uint8),

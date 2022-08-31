@@ -1,11 +1,11 @@
 from xcp.enum.error_code import ErrorCode
-from xcp.pdu.cto.base import XCPCTOCodeBase
+from xcp.pdu.cto.base import XCPCTOBase
 
-class Err(XCPCTOCodeBase):
+class Err(XCPCTOBase):
     __slots__ = ("code")
     
     PID  = 0xFE
-    CODE = ErrorCode.ERR_CMD_SYNCH
 
-    def __init__(self, data = b''):
+    def __init__(self, code = ErrorCode.ERR_CMD_SYNCH, data = b''):
+        self.code  = code
         self.data  = data

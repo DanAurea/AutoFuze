@@ -1,7 +1,7 @@
+from ctypes import c_uint8
+
 from xcp.enum.command_code import CalibrationCommandCode
 from xcp.pdu.cto.cmd import Cmd
-
-from struct import pack
 
 class DownloadRequest(Cmd):
     PID = CalibrationCommandCode.DOWNLOAD
@@ -13,6 +13,8 @@ class DownloadRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
+            PID = DownloadRequest.PID
+
             _pack_   = 1
             _fields_ =  [
                             ('number_of_data_element', c_uint8),

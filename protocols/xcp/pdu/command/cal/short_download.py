@@ -14,6 +14,8 @@ class ShortDownloadRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
+            PID = ShortDownloadRequest.PID
+            
             _pack_   = 1
             _fields_ =  [
                             ('number_of_data_element', c_uint8),

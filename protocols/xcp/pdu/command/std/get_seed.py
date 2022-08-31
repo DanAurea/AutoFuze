@@ -26,11 +26,13 @@ class GetSeedResponse(Res):
 
     def __bytes__(self):
         class Payload(Res):
-                _pack_   = 1
-                _fields_ =  [
-                                ('length', c_uint8),
-                                ('seed', self.length * c_uint8),
-                            ]
+            PID = GetSeedResponse.PID
+            
+            _pack_   = 1
+            _fields_ =  [
+                            ('length', c_uint8),
+                            ('seed', self.length * c_uint8),
+                        ]
 
         payload = Payload()
         payload.length = self.length

@@ -25,6 +25,8 @@ class UploadResponse(Res):
 
     def __bytes__(self):
         class Payload(Res):
+            PID = UploadResponse.PID
+            
             _pack_   = 1
             _fields_ =  [
                             ('alignment', self.number_of_data_element * c_uint8),
