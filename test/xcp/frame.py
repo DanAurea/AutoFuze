@@ -25,9 +25,11 @@ assert number_of_data_element == len(data)
 assert alignment              == 0x00
 assert bytearray(data)        == bytearray(data_unpack)
 
-eth_transport = EthernetTransport()
-eth_frame_1   = eth_transport.create_message((xcp_packet))
-eth_frame_2   = eth_transport.create_message((xcp_packet))
+eth_transport = CanTransport() / download_req
+eth_frame_1   = bytes(eth_transport)
+eth_frame_2   = bytes(eth_transport)
+
+print(eth_frame_1, eth_frame_2)
 
 # Check that eth frame is correctly formed
 assert unpack("<H", eth_frame_1[:2])[0]  == 0x07

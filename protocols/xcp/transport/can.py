@@ -1,6 +1,11 @@
-from ctypes import BigEndianStructure
-from struct import pack
-from xcp.transport.base import TransportBase
+from ctypes import BigEndianStructure, c_uint8
+from xcp.transport.base import XCPTransportBase
+
+class CanFrame(BigEndianStructure):
+    _pack_   = 1
+    _fields_ =  [
+                    ('dlc', c_uint8)
+                ]
 
 class CanTail(BigEndianStructure):
     """
@@ -35,7 +40,7 @@ class CanTail(BigEndianStructure):
 
     del _set_fill
 
-class CanTransport(TransportBase):
+class CanTransport(XCPTransportBase):
     """
     This class describes Controller Area Network (CAN) transport layer used for XCP.
     XCP on CAN is adding an extra tail to XCP frame.
@@ -43,36 +48,31 @@ class CanTransport(TransportBase):
     """
     MAX_DLC = 8 # Max data length code of CAN protocol
 
-    def __init__(self, max_dlc_required = False, should_fill = False):
-        super(CanTransport, self).__init__()
+    def __init__(self, max_dlc_required = False, fill = False):
         self._max_dlc_required = max_dlc_required
-        self._should_fill      = should_fill
+        self._fill             = fill
         self._tail             = CanTail()
 
-    def create_message(self, packet):
+    def __bytes__(self):
         """
         Creates a XCP CAN frame 
 
-        :param      packet:  The packet to send.
-        :type       packet:  XCPPacketBase
-        
         :returns:   Bytes of the message related to its transport layer.
         :rtype:     bytes
         """
-        frame_bytes = bytearray()
+        pdu_len = len(bytes(self._pdu))
 
-        packet_len = len(bytes(packet))
-
-        if self._max_dlc_required or self._should_fill:
+        if self._max_dlc_required or self._fill:
             dlc = self.MAX_DLC
         else:
-            dlc = packet_len
+            # TODO : Refactor to handle overflow
+            dlc = min(self.MAX_DLC, pdu_len)
 
         # Fill tail with empty bytes to reach MAX_DLC
-        if self._should_fill and packet_len < self.MAX_DLC:
-            self._tail.fill = self.MAX_DLC - packet_len
+        if self._fill and pdu_len < self.MAX_DLC:
+            self._tail.fill = self.MAX_DLC - pdu_len
 
-        frame_bytes.extend(pack("<B", dlc))
-        frame_bytes.extend(super(CanTransport, self).create_message(packet))
+        frame = CanFrame()
+        frame.dlc = dlc
 
-        return bytes(frame_bytes)
+        return bytes(frame) + super(CanTransport, self).__bytes__()

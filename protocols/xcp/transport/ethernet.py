@@ -1,6 +1,6 @@
 from ctypes import BigEndianStructure, c_uint16
 
-from xcp.transport.base import TransportBase
+from xcp.transport.base import XCPTransportBase
 from struct import pack
 
 class XcpEthernetHeader(BigEndianStructure):
@@ -27,31 +27,26 @@ class XcpEthernetHeader(BigEndianStructure):
         """
         self._control_ctr += 0x01
 
-class EthernetTransport(TransportBase):
+class EthernetTransport(XCPTransportBase):
     """
     This class describes Ethernet transport layer used for XCP.
     XCP on Ethernet is adding an extra header to XCP frame.
     No tail is added.
     """
     def __init__(self):
-        super(EthernetTransport, self).__init__()
         self._header = XcpEthernetHeader()
+        self._pdu    = b''
 
-    def create_message(self, packet):
+    def __bytes__(self):
         """
         Creates a XCP Ethernet frame 
-
-        :param      packet:  The packet to send.
-        :type       packet:  XCPPacketBase
         
         :returns:   Bytes of the message related to its transport layer.
         :rtype:     bytes
         """
-        self._header.packet_len = len(bytes(packet))
-        
-        frame_bytes = super(EthernetTransport, self).create_message(packet) 
+        frame_bytes = super(EthernetTransport, self).__bytes__() 
         
         # Update control counter for next frame
         self._header.update_control()
         
-        return bytes(frame_bytes)
+        return frame_bytes
