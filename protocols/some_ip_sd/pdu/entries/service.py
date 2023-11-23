@@ -1,6 +1,6 @@
-from ctypes import BigEndianStructure, c_uint8, c_uint16, c_uint32
+from ctypes import LittleEndianStructure, c_uint8, c_uint16, c_uint32
 
-class ServiceEntry(BigEndianStructure):
+class ServiceEntry(LittleEndianStructure):
     _pack_   =  1
     _fields_ =  [
                     ("type", c_uint8),

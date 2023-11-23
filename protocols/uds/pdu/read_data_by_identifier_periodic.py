@@ -1,7 +1,7 @@
 import enum
 import struct
 
-from ctypes import c_uint8, c_uint16, BigEndianStructure, LittleEndianStructure
+from ctypes import c_uint8, c_uint16
 
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase

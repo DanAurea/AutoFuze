@@ -1,6 +1,6 @@
-from ctypes import BigEndianStructure, c_uint8, c_uint16
+from ctypes import LittleEndianStructure, c_uint8, c_uint16
 
-class Option(BigEndianStructure):
+class Option(LittleEndianStructure):
     _pack_      =   1
     _fields_    =   [
                         ("length", c_uint16),

@@ -1,6 +1,6 @@
-from ctypes import BigEndianStructure, c_uint8
+from ctypes import LittleEndianStructure, c_uint8
 
-class OBDIIFrameBase(BigEndianStructure):
+class OBDIIFrameBase(LittleEndianStructure):
     _pack_   = 1
     _fields_ = [
                 ("number_byte", c_uint8),

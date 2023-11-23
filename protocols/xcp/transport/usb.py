@@ -1,9 +1,9 @@
-from ctypes import BigEndianStructure, c_uint8
+from ctypes import LittleEndianStructure, c_uint8
 
 from xcp.transport.base import TransportBase
 from struct import pack
 
-class UsbHeader(BigEndianStructure):
+class UsbHeader(LittleEndianStructure):
     """
     This class describes a USB header.
     USB composition vary regarding XCP packet:
@@ -30,7 +30,7 @@ class UsbHeader(BigEndianStructure):
         # TODO: Handle overflow if control ctr goes over 0xFF
         self._control_ctr += 0x01
 
-class UsbTail(BigEndianStructure):
+class UsbTail(LittleEndianStructure):
 
     def __init__(self):
         self._fill = 0x00

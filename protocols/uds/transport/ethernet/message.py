@@ -1,10 +1,10 @@
-from ctypes import BigEndianStructure, c_uint8, c_uint16, c_uint32, sizeof
+from ctypes import LittleEndianStructure, c_uint8, c_uint16, c_uint32, sizeof
 
 from uds.transport.ethernet.enum.connection_kind import ConnectionKind
 from uds.transport.ethernet.enum.protocol_version import DoIPProtocolVersion
 from uds.transport.ethernet.enum.payload_type import DoIPPayloadType
 
-class DoIPMessage(BigEndianStructure):
+class DoIPMessage(LittleEndianStructure):
     """
     This class describes a DoIP message.
 

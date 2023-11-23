@@ -1,6 +1,6 @@
-from ctypes import BigEndianStructure, c_uint8, c_uint32
+from ctypes import LittleEndianStructure, c_uint8, c_uint32
 
-class SOMEIPHeader(BigEndianStructure):
+class SOMEIPHeader(LittleEndianStructure):
     _pack_      =   1
     _fields_    =   [
                         ("message_id", c_uint32), # Service ID (16 bits) / 0 if method, 1 if event (1 bit) / Method or Event ID (last 15 bits)

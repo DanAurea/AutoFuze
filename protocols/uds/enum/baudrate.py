@@ -1,8 +1,8 @@
 import enum
 
-class Baudrate(enum.IntEnum):
+class BaudRate(enum.IntEnum):
     """
-    Define baudrate that can be used in UDS standard.
+    Define baud rate that can be used in UDS standard.
     """
     BAUD_9600    = 0x01
     BAUD_19200   = 0x02

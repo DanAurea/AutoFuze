@@ -25,11 +25,15 @@ assert number_of_data_element == len(data)
 assert alignment              == 0x00
 assert bytearray(data)        == bytearray(data_unpack)
 
-eth_transport = CanTransport() / download_req
+eth_transport = EthernetTransport() / download_req
 eth_frame_1   = bytes(eth_transport)
 eth_frame_2   = bytes(eth_transport)
 
-print(eth_frame_1, eth_frame_2)
+from ctypes import memmove, addressof, sizeof
+
+memmove(addressof(eth_transport), bytes([0x01, 0x02, 0x03]), 3)
+
+print(bytes(eth_transport))
 
 # Check that eth frame is correctly formed
 assert unpack("<H", eth_frame_1[:2])[0]  == 0x07

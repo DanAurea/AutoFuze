@@ -3,7 +3,7 @@ import struct
 
 from ctypes import c_uint8, c_uint16
 
-from uds.enum.baudrate import Baudrate
+from uds.enum.baudrate import BaudRate
 from uds.enum.service_id import ServiceID
 from uds.pdu.base import ServiceBase
 
