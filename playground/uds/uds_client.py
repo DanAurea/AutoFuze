@@ -1,39 +1,14 @@
 import enum
 import socket
 import sys
-
+import time
 sys.path.append("../../protocols")
 
 # Import enum
-from uds.enum.nrc import NRC
-from uds.enum.session import Session
-from uds.enum.service_id import ServiceID
+from uds.enum import *
 
 # Import PDU
-from uds.pdu.access_timing_parameters import AccessTimingParameters
-from uds.pdu.clear_diagnostic_information import ClearDiagnosticInformation
-from uds.pdu.communication_control import CommunicationControl
-from uds.pdu.control_dtc_settings import ControlDTCSettings
-from uds.pdu.ecu_reset import EcuReset
-from uds.pdu.input_output_control_by_identifier import IOControlByID
-from uds.pdu.link_control import LinkControl
-from uds.pdu.negative_response import NegativeResponse
-from uds.pdu.read_data_by_identifier import ReadDataByID
-from uds.pdu.read_data_by_identifier_periodic import ReadDataByIDPeriodic
-from uds.pdu.read_memory_by_address import ReadMemoryByAddress
-from uds.pdu.read_scaling_data_by_identifier import ReadScalingDataByID
-from uds.pdu.request_download import RequestDownload
-from uds.pdu.request_file_transfer import RequestFileTransfer
-from uds.pdu.request_upload import RequestUpload
-from uds.pdu.request_transfer_exit import RequestTransferExit
-from uds.pdu.response_on_event import ResponseOnEvent
-from uds.pdu.routine_control import RoutineControl
-from uds.pdu.security_access import SecurityAccess
-from uds.pdu.session_control import SessionControl
-from uds.pdu.tester_present import TesterPresent
-from uds.pdu.transfer_data import TransferData
-from uds.pdu.write_data_by_identifier import WriteDataByID
-
+from uds.pdu import *
 from uds.transport.ethernet.payload import diagnostic_message as eth
 
 # Create a TCP/IP socket
@@ -41,8 +16,10 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Connect the socket to the port where the server is listening
 server_address = ('localhost', 13400)
-print(sys.stderr, 'connecting to %s port %s' % server_address)
+print('connecting to %s port %s' % server_address)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.connect(server_address)
+sock.settimeout(2)
 
 try:
     message_list = [ 
@@ -81,8 +58,9 @@ try:
     
     # Send crafted DoIP packets
     for message in message_list:
+        print(bytes(message))
         sock.send(bytes(message))
-    
 finally:
     print('closing socket')
+    sock.shutdown(socket.SHUT_RDWR)
     sock.close()

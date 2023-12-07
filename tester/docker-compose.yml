@@ -1,0 +1,13 @@
+version: "3.3"
+services:
+  DoIP_Tester:
+    command: python /app/uds_server.py
+    image: python
+    container_name: doip_tester
+    ports:
+      - "13400:13400"
+    volumes:
+      - ../playground/uds:/app
+    restart: unless-stopped
+    tty:  false
+    stdin_open: false
