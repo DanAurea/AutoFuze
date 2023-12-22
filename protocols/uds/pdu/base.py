@@ -1,10 +1,10 @@
 import struct
 
-from ctypes import LittleEndianStructure, c_uint8
+from ctypes import BigEndianStructure, c_uint8
 
 from uds.enum.service_id import ServiceID
 
-class ServiceBase(LittleEndianStructure):
+class ServiceBase(BigEndianStructure):
     """
     This class describes a unified diagnostic service (UDS) base.
     """

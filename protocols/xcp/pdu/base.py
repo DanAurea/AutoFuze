@@ -1,6 +1,6 @@
-from ctypes import LittleEndianStructure
+from ctypes import BigEndianStructure
 
-class XCPPacketBase(LittleEndianStructure):
+class XCPPacketBase(BigEndianStructure):
     
     def __new__(cls, *args, **kwargs):
         instance                = super(XCPPacketBase, cls).__new__(cls, *args, **kwargs)

@@ -1,6 +1,6 @@
-from ctypes import LittleEndianStructure, c_uint8, c_uint16, c_uint32, sizeof
+from ctypes import BigEndianStructure, c_uint8, c_uint16, c_uint32, sizeof
 
-class Timestamp(LittleEndianStructure):
+class Timestamp(BigEndianStructure):
     
     def __init__(self, timestamp = None, timestamp_length = 1):
         self.timestamp        = timestamp
@@ -26,7 +26,7 @@ class Timestamp(LittleEndianStructure):
                 timestamp_format = c_uint32
             else:
                 pass # TODO : Warning
-            class Payload(LittleEndianStructure):
+            class Payload(BigEndianStructure):
                 _pack_   = 1
                 _fields_ =  [
                                 ('timestamp', timestamp_format),
@@ -37,7 +37,7 @@ class Timestamp(LittleEndianStructure):
 
             output = bytes(payload)
         else:
-            class Payload(LittleEndianStructure):
+            class Payload(BigEndianStructure):
                 pass
 
             output = bytes(Payload())

@@ -36,7 +36,7 @@ class TransferData(ServiceBase):
             SERVICE_ID = TransferData.SERVICE_ID
             _pack_   = 1
             _fields_ =  [
-                            ('block_sequence_counter', c_uint16),
+                            ('block_sequence_counter', c_uint8),
                             ('data', len(self.data) * c_uint8),
                         ]
 

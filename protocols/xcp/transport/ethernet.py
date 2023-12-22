@@ -1,9 +1,9 @@
-from ctypes import LittleEndianStructure, c_uint16
+from ctypes import BigEndianStructure, c_uint16
 
 from xcp.transport.base import XCPTransportBase
 from struct import pack
 
-class XcpEthernetHeader(LittleEndianStructure):
+class XcpEthernetHeader(BigEndianStructure):
     """
     This class describes a XCP ethernet header.
     XCP Ethernet header is composed as:

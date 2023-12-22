@@ -1,6 +1,6 @@
-from ctypes import LittleEndianStructure, c_uint8, c_uint16
+from ctypes import BigEndianStructure, c_uint8, c_uint16
 
-class Identification(LittleEndianStructure):
+class Identification(BigEndianStructure):
     """
     This class describes the identification field used in XCP frame.
     
@@ -38,7 +38,7 @@ class Identification(LittleEndianStructure):
                 if self.daq_word:
                     daq_format = c_uint16
 
-            class Payload(LittleEndianStructure):
+            class Payload(BigEndianStructure):
                 _pack_   = 1
                 _fields_ =  [
                                 ('pid', c_uint8),
@@ -53,7 +53,7 @@ class Identification(LittleEndianStructure):
 
             output = bytes(payload)
         else:
-            class Payload(LittleEndianStructure):
+            class Payload(BigEndianStructure):
                 pass
 
             output = bytes(Payload())

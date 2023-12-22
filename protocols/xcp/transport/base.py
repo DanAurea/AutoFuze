@@ -1,6 +1,6 @@
-from ctypes import LittleEndianStructure
+from ctypes import BigEndianStructure
 
-class XCPTransportBase(LittleEndianStructure):
+class XCPTransportBase(BigEndianStructure):
     """
     This class describes the transport layer basis.
     

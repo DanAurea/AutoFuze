@@ -1,13 +1,13 @@
-from ctypes import LittleEndianStructure, c_uint8
+from ctypes import BigEndianStructure, c_uint8
 from xcp.transport.base import XCPTransportBase
 
-class CanFrame(LittleEndianStructure):
+class CanFrame(BigEndianStructure):
     _pack_   = 1
     _fields_ =  [
                     ('dlc', c_uint8)
                 ]
 
-class CanTail(LittleEndianStructure):
+class CanTail(BigEndianStructure):
     """
     This class describes a Controller Area Network (CAN) tail.
     Tail composition vary regarding XCP packet length and 
