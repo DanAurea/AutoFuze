@@ -4,8 +4,9 @@ import sys
 import time
 
 # Scapy is used for ease of testing Wireshark dissector but could be replaced with internal library once the dissector is completed
-from scapy.contrib.automotive.xcp.xcp import XCPOnTCP , XCPOnUDP, CTORequest
+from scapy.contrib.automotive.xcp.xcp import XCPOnTCP , XCPOnUDP, CTORequest, CTOResponse
 from scapy.contrib.automotive.xcp.cto_commands_master import *
+from scapy.contrib.automotive.xcp.cto_commands_slave import *
 from scapy.layers.inet import IP
 
 # Create a TCP/IP socket
@@ -35,8 +36,22 @@ try:
                                 ProgramMax, ProgramVerify
                             ]
 
+    command_slave_list = [      
+                                GenericResponse, NegativeResponse, EvPacket, ServPacket, TransportLayerCmdGetSlaveIdResponse,
+                                TransportLayerCmdGetDAQIdResponse, SegmentInfoMode0PositiveResponse, SegmentInfoMode1PositiveResponse,
+                                SegmentInfoMode2PositiveResponse, ConnectPositiveResponse, StatusPositiveResponse, CommonModeInfoPositiveResponse,
+                                IdPositiveResponse, SeedPositiveResponse, UnlockPositiveResponse, UploadPositiveResponse, ShortUploadPositiveResponse,
+                                ChecksumPositiveResponse, CalPagePositiveResponse, PagProcessorInfoPositiveResponse, PageInfoPositiveResponse,
+                                SegmentModePositiveResponse, DAQListModePositiveResponse, StartStopDAQListPositiveResponse, DAQClockListPositiveResponse,
+                                ReadDAQPositiveResponse, DAQProcessorInfoPositiveResponse, DAQResolutionInfoPositiveResponse, DAQListInfoPositiveResponse,
+                                DAQEventInfoPositiveResponse, ProgramStartPositiveResponse, PgmProcessorPositiveResponse, SectorInfoPositiveResponse
+                            ]
+
     for cmd in command_master_list:
         sock.send(bytes(XCPOnTCP() / CTORequest() / cmd())[20:])
+
+    for cmd in command_slave_list:
+        sock.send(bytes(XCPOnTCP() / CTOResponse() / cmd())[20:])
 finally:
     print('closing socket')
     sock.shutdown(socket.SHUT_RDWR)
