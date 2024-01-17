@@ -3,11 +3,17 @@ import socket
 import sys
 import time
 
+sys.path.append("../../protocols")
+
 # Scapy is used for ease of testing Wireshark dissector but could be replaced with internal library once the dissector is completed
 from scapy.contrib.automotive.xcp.xcp import XCPOnTCP , XCPOnUDP, CTORequest, CTOResponse
 from scapy.contrib.automotive.xcp.cto_commands_master import *
 from scapy.contrib.automotive.xcp.cto_commands_slave import *
 from scapy.layers.inet import IP
+
+from xcp.pdu.command.std.connect import ConnectRequest
+from xcp.transport.ethernet import EthernetTransport
+connect_request = bytes(EthernetTransport()/ConnectRequest())
 
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

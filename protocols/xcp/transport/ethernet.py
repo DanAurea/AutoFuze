@@ -44,9 +44,10 @@ class EthernetTransport(XCPTransportBase):
         :returns:   Bytes of the message related to its transport layer.
         :rtype:     bytes
         """
-        frame_bytes = super(EthernetTransport, self).__bytes__() 
-        
         # Update control counter for next frame
+        self._header._packet_len = len(bytes(self._pdu))
         self._header.update_control()
+
+        frame_bytes = super(EthernetTransport, self).__bytes__()         
         
         return frame_bytes

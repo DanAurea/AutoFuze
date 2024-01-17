@@ -17,8 +17,8 @@ class ConnectRequest(Cmd):
                     ('mode', c_uint8),
                 ]
 
-    def __init__(self, mode):
-        self.mode = ConnectMode.NORMAL_MODE
+    def __init__(self, mode = ConnectMode.NORMAL):
+        self.mode = mode
 
 class ConnectResponse(Res):
     """
