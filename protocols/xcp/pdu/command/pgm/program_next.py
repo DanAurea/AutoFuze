@@ -1,13 +1,13 @@
 from ctypes import c_uint8
 
-from xcp.enum.command_code import NvmProgrammingCommand
+from xcp.enum.command_code import NvmProgrammingCommandCode
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.error_code import ErrorCode
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class ProgramNextRequest(Cmd):
-    PID = NvmProgrammingCommand.PROGRAM_NEXT
+class ProgramNext(Cmd):
+    PID = NvmProgrammingCommandCode.PROGRAM_NEXT
 
     def __init__(self, number_of_data_element = 0xFF, alignment = b'', data = b''):
         self.number_of_data_element = number_of_data_element
@@ -16,7 +16,7 @@ class ProgramNextRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
-            PID = ProgramNextRequest.PID
+            PID = ProgramNext.PID
             
             _pack_   = 1
             _fields_ =  [
@@ -33,7 +33,7 @@ class ProgramNextRequest(Cmd):
         return bytes(payload)
 
 class ProgramNextResponse(Res):
-    PID = NvmProgrammingCommand.DISCONNECT
+    PID = NvmProgrammingCommandCode.PROGRAM_NEXT
 
     _pack_ = 1
     _fields_ =  [

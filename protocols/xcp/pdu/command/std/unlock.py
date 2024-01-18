@@ -5,7 +5,7 @@ from xcp.enum.parameter_bit import CurrentSessionStatusBit
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class UnlockRequest(Cmd):
+class Unlock(Cmd):
     PID = StandardCommandCode.UNLOCK
     
     def __init__(self, length = 0xFF, key = b''):
@@ -14,7 +14,7 @@ class UnlockRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
-            PID = UnlockRequest.PID
+            PID = Unlock.PID
             
             _pack_   = 1
             _fields_ =  [

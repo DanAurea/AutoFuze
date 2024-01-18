@@ -6,7 +6,7 @@ from xcp.enum.parameter_bit import RessourceBit, CommModeBasicBit
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class ConnectRequest(Cmd):
+class Connect(Cmd):
     """
     This class describes a connect request.
     """

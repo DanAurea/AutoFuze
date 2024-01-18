@@ -3,10 +3,10 @@ from ctypes import c_uint8, c_uint32
 from xcp.enum.command_code import CalibrationCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class ShortDownloadRequest(Cmd):
+class ShortDownload(Cmd):
     PID = CalibrationCommandCode.SHORT_DOWNLOAD
     
-    def __init__(self, number_of_data_element = 0xFF, address_extension = 0xFF, address = 0xFF, data_elements = b''):
+    def __init__(self, number_of_data_element = 0x00, address_extension = 0xFF, address = 0xFF, data_elements = b''):
         self.number_of_data_element = number_of_data_element
         self.address_extension      = address_extension
         self.address                = address
@@ -14,7 +14,7 @@ class ShortDownloadRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
-            PID = ShortDownloadRequest.PID
+            PID = ShortDownload.PID
             
             _pack_   = 1
             _fields_ =  [

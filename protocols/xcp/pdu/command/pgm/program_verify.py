@@ -1,10 +1,10 @@
 from ctypes import c_uint8, c_uint16, c_uint32
 
-from xcp.enum.command_code import NvmProgrammingCommand
+from xcp.enum.command_code import NvmProgrammingCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class ProgramVerifyRequest(Cmd):
-    PID = NvmProgrammingCommand.PROGRAM_VERIFY
+class ProgramVerify(Cmd):
+    PID = NvmProgrammingCommandCode.PROGRAM_VERIFY
 
     _pack_ = 1
     _fields_ =  [

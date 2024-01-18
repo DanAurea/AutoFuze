@@ -5,7 +5,7 @@ from xcp.enum.parameter_bit import CurrentSessionStatusBit, RessourceBit
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class GetStatusRequest(Cmd):
+class GetStatus(Cmd):
     """
     This class describes a get current session request.
     """

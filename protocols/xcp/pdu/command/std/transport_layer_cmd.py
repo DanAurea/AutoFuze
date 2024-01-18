@@ -3,7 +3,7 @@ from ctypes import c_uint8
 from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class TransportLayerCmdRequest(Cmd):
+class TransportLayerCmd(Cmd):
     """
     This class describes a connect request.
     """
@@ -15,7 +15,7 @@ class TransportLayerCmdRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
-            PID = TransportLayerCmdRequest.PID
+            PID = TransportLayerCmd.PID
             
             _pack_   = 1
             _fields_ =  [

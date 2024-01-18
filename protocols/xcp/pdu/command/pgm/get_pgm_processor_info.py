@@ -1,13 +1,13 @@
 from ctypes import c_uint8
 
-from xcp.enum.command_code import NvmProgrammingCommand
+from xcp.enum.command_code import NvmProgrammingCommandCode
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.parameter_bit import PgmPropertiesBit
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class GetPgmProcessorInfoRequest(Cmd):
-    PID = NvmProgrammingCommand.GET_PGM_PROCESSOR_INFO
+class GetPgmProcessorInfo(Cmd):
+    PID = NvmProgrammingCommandCode.GET_PGM_PROCESSOR_INFO
     
 class GetPgmProcessorInfoResponse(Res):
     PID = StandardCommandCode.CONNECT

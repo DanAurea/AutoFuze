@@ -1,12 +1,12 @@
 from ctypes import c_uint8, c_uint32
 
-from xcp.enum.command_code import DataAcquisitionCommand
+from xcp.enum.command_code import DataAcquisitionCommandCode
 from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class ReadDaqRequest(Cmd):
-    PID = DataAcquisitionCommand.READ_DAQ
+class ReadDaq(Cmd):
+    PID = DataAcquisitionCommandCode.READ_DAQ
 
 class ReadDaqResponse(Res):
     PID = StandardCommandCode.CONNECT

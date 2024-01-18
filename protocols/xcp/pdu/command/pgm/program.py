@@ -1,10 +1,10 @@
 from ctypes import c_uint8
 
-from xcp.enum.command_code import NvmProgrammingCommand
+from xcp.enum.command_code import NvmProgrammingCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class ProgramRequest(Cmd):
-    PID = NvmProgrammingCommand.PROGRAM
+class Program(Cmd):
+    PID = NvmProgrammingCommandCode.PROGRAM
     
     def __init__(self, number_of_data_element = 0xFF, alignment = b'', data = b''):
         self.number_of_data_element = number_of_data_element
@@ -13,7 +13,7 @@ class ProgramRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
-            PID = ProgramRequest.PID
+            PID = Program.PID
 
             _pack_   = 1
             _fields_ =  [

@@ -3,7 +3,7 @@ from ctypes import c_uint8, c_uint32
 from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class ShortUploadRequest(Cmd):
+class ShortUpload(Cmd):
     PID = StandardCommandCode.SHORT_UPLOAD
     
     _pack_   = 1

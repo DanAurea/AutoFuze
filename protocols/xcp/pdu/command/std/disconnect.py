@@ -1,7 +1,7 @@
 from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class DisconnectRequest(Cmd):
+class Disconnect(Cmd):
     """
     This class describes a disconnect request.
     """

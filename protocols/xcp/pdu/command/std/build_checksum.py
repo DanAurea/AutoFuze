@@ -5,7 +5,7 @@ from xcp.enum.checksum_type import ChecksumType
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class BuildChecksumRequest(Cmd):
+class BuildChecksum(Cmd):
     PID = StandardCommandCode.BUILD_CHECKSUM
         
     _pack_   = 1

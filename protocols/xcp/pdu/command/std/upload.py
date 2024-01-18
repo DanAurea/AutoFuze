@@ -4,7 +4,7 @@ from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class UploadRequest(Cmd):
+class Upload(Cmd):
     PID = StandardCommandCode.UPLOAD
     
     _pack_   = 1

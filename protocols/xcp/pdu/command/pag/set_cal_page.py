@@ -1,11 +1,11 @@
 from ctypes import c_uint8
 
-from xcp.enum.command_code import PageSwitchingCommand
+from xcp.enum.command_code import PageSwitchCommandCode
 from xcp.enum.parameter_bit import SetCalPageBit
 from xcp.pdu.cto.cmd import Cmd
 
-class SetCalPageRequest(Cmd):
-    PID = PageSwitchingCommand.SET_CAL_PAGE
+class SetCalPage(Cmd):
+    PID = PageSwitchCommandCode.SET_CAL_PAGE
     
     _pack_   = 1
     _fields_ =  [

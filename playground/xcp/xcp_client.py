@@ -7,13 +7,13 @@ sys.path.append("../../protocols")
 
 # Scapy is used for ease of testing Wireshark dissector but could be replaced with internal library once the dissector is completed
 from scapy.contrib.automotive.xcp.xcp import XCPOnTCP , XCPOnUDP, CTORequest, CTOResponse
-from scapy.contrib.automotive.xcp.cto_commands_master import *
 from scapy.contrib.automotive.xcp.cto_commands_slave import *
 from scapy.layers.inet import IP
 
-from xcp.pdu.command.std.connect import ConnectRequest
+from xcp.pdu.command import *
 from xcp.transport.ethernet import EthernetTransport
-connect_request = bytes(EthernetTransport()/ConnectRequest())
+
+connect_request = bytes(EthernetTransport()/Connect())
 
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -29,8 +29,7 @@ try:
     command_master_list = [
                                 Connect, Disconnect, GetStatus, Synch, GetCommModeInfo, GetId,
                                 SetRequest, GetSeed, Unlock, SetMta, Upload, ShortUpload,
-                                BuildChecksum, TransportLayerCmd, TransportLayerCmdGetSlaveId,
-                                TransportLayerCmdGetDAQId, TransportLayerCmdSetDAQId, UserCmd,
+                                BuildChecksum, TransportLayerCmd, UserCmd,
                                 Download, DownloadNext, DownloadMax, ShortDownload, ModifyBits,
                                 SetCalPage, GetCalPage, GetPagProcessorInfo, GetSegmentInfo,
                                 GetPageInfo, SetSegmentMode, GetSegmentMode, CopyCalPage, SetDaqPtr,
@@ -54,7 +53,9 @@ try:
                             ]
 
     for cmd in command_master_list:
-        sock.send(bytes(XCPOnTCP() / CTORequest() / cmd())[20:])
+        if cmd == GetDaqListMode:
+            print(bytes(cmd()))
+        sock.send(bytes(EthernetTransport() / cmd()))
 
     for cmd in command_slave_list:
         sock.send(bytes(XCPOnTCP() / CTOResponse() / cmd())[20:])

@@ -1,10 +1,10 @@
 from ctypes import c_uint8, c_uint16, c_uint32
 
-from xcp.enum.command_code import NvmProgrammingCommand
+from xcp.enum.command_code import NvmProgrammingCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class ProgramClearRequest(Cmd):
-    PID = NvmProgrammingCommand.PROGRAM_CLEAR
+class ProgramClear(Cmd):
+    PID = NvmProgrammingCommandCode.PROGRAM_CLEAR
     
     _pack_ = 1
     _fields_ =  [

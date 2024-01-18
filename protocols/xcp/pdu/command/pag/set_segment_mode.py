@@ -1,9 +1,11 @@
-from xcp.enum.command_code import PageSwitchingCommand
+from xcp.enum.command_code import PageSwitchCommandCode
 from xcp.enum.parameter_bit import SetSegmentModeBit
 from xcp.pdu.cto.cmd import Cmd
 
-class SetSegmentModeRequest(Cmd):
-    PID = PageSwitchingCommand.SET_SEGMENT_MODE
+from ctypes import c_uint8
+
+class SetSegmentMode(Cmd):
+    PID = PageSwitchCommandCode.SET_SEGMENT_MODE
 
     _pack_   = 1
     _fields_ =  [

@@ -1,10 +1,10 @@
 from ctypes import c_uint8
 
-from xcp.enum.command_code import PageSwitchingCommand
+from xcp.enum.command_code import PageSwitchCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class CopyCalPageRequest(Cmd):
-    PID = PageSwitchingCommand.COPY_CAL_PAGE
+class CopyCalPage(Cmd):
+    PID = PageSwitchCommandCode.COPY_CAL_PAGE
 
     _pack_   = 1
     _fields_ =  [

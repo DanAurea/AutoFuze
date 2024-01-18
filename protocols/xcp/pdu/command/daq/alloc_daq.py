@@ -1,10 +1,10 @@
 from ctypes import c_uint8, c_uint16
 
-from xcp.enum.command_code import DataAcquisitionCommand
+from xcp.enum.command_code import DataAcquisitionCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class AllocDaqRequest(Cmd):
-    PID = DataAcquisitionCommand.ALLOC_DAQ
+class AllocDaq(Cmd):
+    PID = DataAcquisitionCommandCode.ALLOC_DAQ
     
     _pack_   = 1
     _fields_ =  [

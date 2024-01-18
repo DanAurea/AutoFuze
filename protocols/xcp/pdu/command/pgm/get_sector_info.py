@@ -1,12 +1,12 @@
 from ctypes import c_uint8, c_uint32
 
-from xcp.enum.command_code import NvmProgrammingCommand
+from xcp.enum.command_code import NvmProgrammingCommandCode
 from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class GetSectorInfoRequest(Cmd):
-    PID = NvmProgrammingCommand.GET_SECTOR_INFO
+class GetSectorInfo(Cmd):
+    PID = NvmProgrammingCommandCode.GET_SECTOR_INFO
 
     _pack_   = 1
     _fields_ =  [

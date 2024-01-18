@@ -3,7 +3,7 @@ from ctypes import c_uint8, c_uint16
 from xcp.enum.command_code import CalibrationCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class ModifyBitsRequest(Cmd):
+class ModifyBits(Cmd):
     PID = CalibrationCommandCode.MODIFY_BITS
     
     _pack_  = 1

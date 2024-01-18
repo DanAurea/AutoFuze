@@ -1,13 +1,13 @@
 from ctypes import c_uint8
 
-from xcp.enum.command_code import PageSwitchingCommand
+from xcp.enum.command_code import PageSwitchCommandCode
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.parameter_bit import SetCalPageBit
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class GetCalPageRequest(Cmd):
-    PID = PageSwitchingCommand.GET_CAL_PAGE
+class GetCalPage(Cmd):
+    PID = PageSwitchCommandCode.GET_CAL_PAGE
     
     _pack_   = 1
     _fields_ =  [

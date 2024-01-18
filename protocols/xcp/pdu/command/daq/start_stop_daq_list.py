@@ -1,12 +1,12 @@
 from ctypes import c_uint8, c_uint16
 
-from xcp.enum.command_code import DataAcquisitionCommand
+from xcp.enum.command_code import DataAcquisitionCommandCode
 from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class StartStopDaqListRequest(Cmd):
-    PID = DataAcquisitionCommand.START_STOP_DAQ_LIST
+class StartStopDaqList(Cmd):
+    PID = DataAcquisitionCommandCode.START_STOP_DAQ_LIST
     
     _pack_   = 1
     _fields_ =  [

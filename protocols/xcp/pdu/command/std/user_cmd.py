@@ -3,7 +3,7 @@ from ctypes import c_uint8
 from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class UserCmdRequest(Cmd):
+class UserCmd(Cmd):
     """
     This class describes a connect request.
     """
@@ -15,7 +15,7 @@ class UserCmdRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
-            PID = UserCmdRequest.PID
+            PID = UserCmd.PID
 
             _pack_   = 1
             _fields_ =  [

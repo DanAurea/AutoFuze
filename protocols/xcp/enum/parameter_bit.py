@@ -91,7 +91,7 @@ class DaqKeyBit(IntFlag):
     OPTIMISATION_TYPE_1          = 0X02
     OPTIMISATION_TYPE_0          = 0X01
     
-class DaqPropertiesBit(IntFlag):
+class DaqEventPropertiesBit(IntFlag):
     """
     This class describes a daq properties bit.
     """

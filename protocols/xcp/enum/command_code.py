@@ -32,7 +32,7 @@ class CalibrationCommandCode(IntEnum):
     SHORT_DOWNLOAD          = 0xED
     MODIFY_BITS             = 0xEC
     
-class PageSwitchingCommandCode(IntEnum):
+class PageSwitchCommandCode(IntEnum):
     """
     This class describes a page switching command.
     """
@@ -116,12 +116,12 @@ class CommandCode(object):
             return StandardCommandCode(self._code)
         elif self._code in range(CalibrationCommandCode.MODIFY_BITS, CalibrationCommandCode.DOWNLOAD + 1):
             return CalibrationCommandCode(self._code)
-        elif self._code in range(PageSwitchingCommandCode.COPY_CAL_PAGE, PageSwitchingCommandCode.SET_CAL_PAGE + 1):
-            return PageSwitchingCommandCode(self._code)
+        elif self._code in range(PageSwitchCommandCodeCode.COPY_CAL_PAGE, PageSwitchCommandCodeCode.SET_CAL_PAGE + 1):
+            return PageSwitchCommandCodeCode(self._code)
         elif self._code in range(DataAcquisitionCommandCode.ALLOC_ODT_ENTRY, DataAcquisitionCommandCode.CLEAR_DAQ_LIST + 1):
             return DataAcquisitionCommandCode(self._code)
-        elif self._code in range(NvmProgrammingCommandCode.PROGRAM_VERIFY, NvmProgrammingCommandCode.PROGRAM_START + 1):
-            return NvmProgrammingCommandCode(self._code)
+        elif self._code in range(NvmProgrammingCommandCodeCode.PROGRAM_VERIFY, NvmProgrammingCommandCodeCode.PROGRAM_START + 1):
+            return NvmProgrammingCommandCodeCode(self._code)
         elif self._code in range(ReservedCommandCode.RESERVED_1, ReservedCommandCode.RESERVED_8 + 1):
             return ReservedCommandCode(self._code)
         else:

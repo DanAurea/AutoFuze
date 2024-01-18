@@ -1,13 +1,13 @@
 from ctypes import c_uint8
 
-from xcp.enum.command_code import NvmProgrammingCommand
+from xcp.enum.command_code import NvmProgrammingCommandCode
 from xcp.enum.command_code import StandardCommandCode
 from xcp.enum.parameter_bit import CommModePgmBit
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class ProgramStartRequest(Cmd):
-    PID = NvmProgrammingCommand.PROGRAM_START
+class ProgramStart(Cmd):
+    PID = NvmProgrammingCommandCode.PROGRAM_START
 
 class ProgramStartResponse(Res):
     PID = StandardCommandCode.CONNECT

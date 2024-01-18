@@ -1,10 +1,10 @@
 from ctypes import c_uint8
 
-from xcp.enum.command_code import NvmProgrammingCommand
+from xcp.enum.command_code import NvmProgrammingCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class ProgramFormatRequest(Cmd):
-    PID = NvmProgrammingCommand.PROGRAM_FORMAT
+class ProgramFormat(Cmd):
+    PID = NvmProgrammingCommandCode.PROGRAM_FORMAT
 
     _pack_   = 1
     _fields_ =  [

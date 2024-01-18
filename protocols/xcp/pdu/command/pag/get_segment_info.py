@@ -1,12 +1,12 @@
 from ctypes import c_uint8
 
-from xcp.enum.command_code import PageSwitchingCommand
+from xcp.enum.command_code import PageSwitchCommandCode
 from xcp.enum.command_code import StandardCommandCode
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class GetSegmentInfoRequest(Cmd):
-    PID = PageSwitchingCommand.GET_SEGMENT_INFO
+class GetSegmentInfo(Cmd):
+    PID = PageSwitchCommandCode.GET_SEGMENT_INFO
 
     _pack_   = 1
     _fields_ =  [

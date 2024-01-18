@@ -5,7 +5,7 @@ from xcp.enum.error_code import ErrorCode
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.res import Res
 
-class SynchRequest(Cmd):
+class Synch(Cmd):
     """
     This class describes a connect request.
     """

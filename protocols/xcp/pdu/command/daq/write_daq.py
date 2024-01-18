@@ -1,10 +1,10 @@
 from ctypes import c_uint8, c_uint32
 
-from xcp.enum.command_code import DataAcquisitionCommand
+from xcp.enum.command_code import DataAcquisitionCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class WriteDaqRequest(Cmd):
-    PID = DataAcquisitionCommand.WRITE_DAQ
+class WriteDaq(Cmd):
+    PID = DataAcquisitionCommandCode.WRITE_DAQ
     
     _pack_ = 1
     _fields_ =  [

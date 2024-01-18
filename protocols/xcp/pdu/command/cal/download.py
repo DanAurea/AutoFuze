@@ -3,7 +3,7 @@ from ctypes import c_uint8
 from xcp.enum.command_code import CalibrationCommandCode
 from xcp.pdu.cto.cmd import Cmd
 
-class DownloadRequest(Cmd):
+class Download(Cmd):
     PID = CalibrationCommandCode.DOWNLOAD
 
     def __init__(self, number_of_data_element = 0xFF, alignment = b'', data = b''):
@@ -13,7 +13,7 @@ class DownloadRequest(Cmd):
 
     def __bytes__(self):
         class Payload(Cmd):
-            PID = DownloadRequest.PID
+            PID = Download.PID
 
             _pack_   = 1
             _fields_ =  [

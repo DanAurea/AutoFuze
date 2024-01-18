@@ -6,7 +6,7 @@ from xcp.enum.error_code import ErrorCode
 from xcp.pdu.cto.cmd import Cmd
 from xcp.pdu.cto.err import Err
 
-class DownloadNextRequest(Cmd):
+class DownloadNext(Cmd):
     PID = CalibrationCommandCode.DOWNLOAD_NEXT
 
     def __init__(self, number_of_data_element = 0xFF, alignment = b'', data = b''):
@@ -17,7 +17,7 @@ class DownloadNextRequest(Cmd):
     def __bytes__(self):
         # TODO: Fill payload accordingly to spec
         class Payload(Cmd):
-            PID = DownloadNextRequest.PID
+            PID = DownloadNext.PID
             
             _pack_   = 1
             _fields_ =  [
